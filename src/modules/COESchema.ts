@@ -1,11 +1,11 @@
 import mongoose, { Schema, model, Model } from "mongoose";
-import { IAdmin } from "../interfaces/IAdmin";
-import COE from "./COESchema";
+import { ICoe } from "../interfaces/ICoe";
 
-const AdminSchema = new Schema<IAdmin>({
+const coeSchema = new Schema<ICoe>({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -18,7 +18,7 @@ const AdminSchema = new Schema<IAdmin>({
   },
   role: {
     type: String,
-    default: 'admin',
+    default: 'COE',
   },
   isVerified: {
     type: Boolean,
@@ -31,12 +31,12 @@ const AdminSchema = new Schema<IAdmin>({
   forgotPasswordTokenExpiry: Date,
   verifyToken: String,
   verifyTokenExpiry: Date,
-  COE: [{
+  Admin: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'COE',
-  }],
+    ref: 'Admin',
+  },
 });
 
-const Admin: Model<IAdmin> = mongoose.models.Admin || model<IAdmin>("Admin", AdminSchema);
+const COE: Model<ICoe> = mongoose.models.COE || model<ICoe>("COE", coeSchema);
 
-export default Admin;
+export default COE;

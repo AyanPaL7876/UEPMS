@@ -1,6 +1,6 @@
 import { Document, Types } from "mongoose";
 
-export interface IAdmin extends Document {
+export interface ICoe extends Document {
   name: string;
   email: string;
   password: string;
@@ -11,5 +11,5 @@ export interface IAdmin extends Document {
   forgotPasswordTokenExpiry?: Date;
   verifyToken?: string;
   verifyTokenExpiry?: Date;
-  COE?: Types.ObjectId[];
+  Admin: Types.ObjectId;
 }
