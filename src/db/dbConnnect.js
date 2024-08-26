@@ -1,13 +1,12 @@
-// Correct version of dbConnect.js
-
 import mongoose from 'mongoose';
 
 export async function connect() {
     try {
-        const connection = await mongoose.connect(process.env.MONGO_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        if (!process.env.MONGO_URL) {
+            throw new Error("MONGO_URL environment variable is not defined");
+        }
+
+        const connection = await mongoose.connect(process.env.MONGO_URL);
 
         mongoose.connection.on('connected', () => {
             console.log('DB connected successfully');
