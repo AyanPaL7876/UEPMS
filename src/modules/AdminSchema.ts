@@ -1,6 +1,5 @@
 import mongoose, { Schema, model, Model } from "mongoose";
 import { IAdmin } from "../interfaces/IAdmin";
-import COE from "./COESchema";
 
 const AdminSchema = new Schema<IAdmin>({
   name: {
@@ -31,7 +30,7 @@ const AdminSchema = new Schema<IAdmin>({
   forgotPasswordTokenExpiry: Date,
   verifyToken: String,
   verifyTokenExpiry: Date,
-  COE: [{
+  coes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'COE',
   }],

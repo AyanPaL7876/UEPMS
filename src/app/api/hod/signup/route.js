@@ -1,13 +1,13 @@
 import { connect } from '../../../../db/dbConnnect';
 import COE from '../../../../modules/COESchema';
-import Admin from '../../../../modules/AdminSchema';
+import HOD from '../../../../modules/HODSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";
 
 connect();
 
-async function authenticateAdmin(request = NextRequest){
+async function authenticateCoe(request = NextRequest){
     const token = request.headers.get('Authorization')?.replace('Bearer ','');
     if(!token){
         return NextResponse.json(
@@ -18,8 +18,8 @@ async function authenticateAdmin(request = NextRequest){
 
     try{
         const decoded = jwt.verify(token,process.env.TOKEN_SECRET);
-        if(decoded.role != 'admin'){
-            return NextResponse.json({ error: "Not authorized. only Admin can create COE" }, { status: 403 });
+        if(decoded.role != 'COE'){
+            return NextResponse.json({ error: "Not authorized. only COE can create HOD" }, { status: 403 });
         }
 
         return decoded;
@@ -35,51 +35,50 @@ async function authenticateAdmin(request = NextRequest){
 
 export async function POST(request= NextRequest) {
     try {
-        const adminAuth = await authenticateAdmin(request);
-        if (adminAuth instanceof NextResponse) {
-            return adminAuth;
+        const coeAuth = await authenticateCoe(request);
+        if (coeAuth instanceof NextResponse) {
+            return coeAuth;
         }
         
         const reqBody = await request.json();
-        const { name, email, password } = reqBody;
+        const { name, email, password, dept } = reqBody;
         console.log(reqBody);
 
         // Validation
-        const coeEmailExist = await COE.findOne({ email });
-        if (coeEmailExist) {
+        const hodEmailExist = await HOD.findOne({ email });
+        if (hodEmailExist) {
             return NextResponse.json({ error: "Email already exists... Please change your email"}, {status: 400 });
         }
 
         // Hash the password
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
-        
-        const decoded = adminAuth;
-        console.log(decoded.email);
 
-        // Find the admin document using the decoded email (or another identifier)
-        const admin = await Admin.findOne({ email: decoded.email });
-        if (!admin) {
-            return NextResponse.json({ error: "Admin not found" }, { status: 404 });
+        console.log(coeAuth.email);
+
+        const coe = await COE.findOne({ email: coeAuth.email });
+        if (!coe) {
+            return NextResponse.json({ error: "COE not found" }, { status: 404 });
         }
 
-        const newCoe = new COE({
+        const newHod = new HOD({
             name,
             email,
+            dept,
             password: hashedPassword,
             role: "COE",
             lastLogin: Date.now(),
-            admin : [admin._id]
+            coe : [coe._id]
         });
 
-        const saveCOE = await newCoe.save();
-        console.log(saveCOE);
+        const saveHOD = await newHod.save();
+        console.log(saveHOD);
 
         // Add COE ID to Admin's COE field
-        admin.coes.push(saveCOE._id);
-        await admin.save();
+        coe.hods.push(saveHOD._id);
+        await coe.save();
 
-        return NextResponse.json({ error: `User successfully created with user id: ${saveCOE._id}`}, {status: 200 });
+        return NextResponse.json({ error: `HOD successfully created with id: ${saveHOD._id}`}, {status: 200 });
 
     } catch (e) {
         console.error(e);

@@ -11,5 +11,6 @@ export interface ICoe extends Document {
   forgotPasswordTokenExpiry?: Date;
   verifyToken?: string;
   verifyTokenExpiry?: Date;
-  Admin: Types.ObjectId;
+  admin: Types.ObjectId;
+  hods?: Types.ObjectId[];
 }

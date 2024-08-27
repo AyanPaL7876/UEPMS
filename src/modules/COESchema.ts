@@ -31,10 +31,14 @@ const coeSchema = new Schema<ICoe>({
   forgotPasswordTokenExpiry: Date,
   verifyToken: String,
   verifyTokenExpiry: Date,
-  Admin: {
+  admin: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Admin',
   },
+  hods : [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'HOD',
+  }]
 });
 
 const COE: Model<ICoe> = mongoose.models.COE || model<ICoe>("COE", coeSchema);

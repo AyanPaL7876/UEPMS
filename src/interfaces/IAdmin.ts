@@ -11,5 +11,5 @@ export interface IAdmin extends Document {
   forgotPasswordTokenExpiry?: Date;
   verifyToken?: string;
   verifyTokenExpiry?: Date;
-  COE?: Types.ObjectId[];
+  coes?: Types.ObjectId[];
 }
