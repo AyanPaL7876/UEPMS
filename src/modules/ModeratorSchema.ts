@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
-import { IHod } from "../interfaces/IHod";
+import { IModerator } from "../interfaces/IModerator";
 
-const HODSchema = new Schema<IHod>({
+const ModeratorSchema = new Schema<IModerator>({
     name : {
         type : String,
         required : true,
@@ -9,8 +9,7 @@ const HODSchema = new Schema<IHod>({
     },
     dept :{
         type : String,
-        required : true,
-        unique : true 
+        required : true
     },
     email : {
         type : String,
@@ -32,24 +31,16 @@ const HODSchema = new Schema<IHod>({
     lastLogin: {
         type: Date,
     },
-    coe: {
+    hod: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'COE',
+        ref: 'HOD',
     },
     forgotPasswordToken : String,
     forgotPasswordTokenExpiry : Date,
     verifyToken : String,
     verifyTokenExpiry : Date,
-    teachers : [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'HOD',
-    }],
-    moderators : [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'HOD',
-    }],
 });
 
-const HOD = mongoose.models.HOD || mongoose.model("HOD",HODSchema);
+const Moderator = mongoose.models.Moderator || mongoose.model("Moderator",ModeratorSchema);
 
-export default HOD;
+export default Moderator;

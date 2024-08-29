@@ -1,13 +1,13 @@
 import { connect } from '../../../../db/dbConnnect';
-import COE from '../../../../modules/COESchema';
 import HOD from '../../../../modules/HODSchema';
+import Moderator from '../../../../modules/ModeratorSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";
 
 connect();
 
-async function authenticateCoe(request = NextRequest){
+async function authenticateHod(request = NextRequest){
     const token = request.headers.get('Authorization')?.replace('Bearer ','');
     if(!token){
         return NextResponse.json(
@@ -18,8 +18,8 @@ async function authenticateCoe(request = NextRequest){
 
     try{
         const decoded = jwt.verify(token,process.env.TOKEN_SECRET);
-        if(decoded.role != 'COE'){
-            return NextResponse.json({ error: "Not authorized. only COE can create HOD" }, { status: 403 });
+        if(decoded.role != 'HOD'){
+            return NextResponse.json({ error: "Not authorized. only HOD can create Moderator" }, { status: 403 });
         }
 
         return decoded;
@@ -35,18 +35,18 @@ async function authenticateCoe(request = NextRequest){
 
 export async function POST(request= NextRequest) {
     try {
-        const coeAuth = await authenticateCoe(request);
-        if (coeAuth instanceof NextResponse) {
-            return coeAuth;
+        const hodAuth = await authenticateHod(request);
+        if (hodAuth instanceof NextResponse) {
+            return hodAuth;
         }
         
         const reqBody = await request.json();
-        const { name, email, password, dept } = reqBody;
+        const { name, email, password } = reqBody;
         console.log(reqBody);
 
         // Validation
-        const hodEmailExist = await HOD.findOne({ email });
-        if (hodEmailExist) {
+        const moderatorEmailExist = await Moderator.findOne({ email });
+        if (moderatorEmailExist) {
             return NextResponse.json({ error: "Email already exists... Please change your email"}, {status: 400 });
         }
 
@@ -54,31 +54,30 @@ export async function POST(request= NextRequest) {
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
 
-        console.log(coeAuth.email);
+        console.log(hodAuth.email);
 
-        const coe = await COE.findOne({ email: coeAuth.email });
-        if (!coe) {
-            return NextResponse.json({ error: "COE not found" }, { status: 404 });
+        const hod = await HOD.findOne({ email: hodAuth.email });
+        if (!hod) {
+            return NextResponse.json({ error: "Hod not found" }, { status: 404 });
         }
 
-        const newHod = new HOD({
+        const newModerator = new Moderator({
             name,
             email,
-            dept,
+            dept : hod.dept,
             password: hashedPassword,
-            role: "HOD",
+            role: "Moderator",
             lastLogin: Date.now(),
-            coe : [coe._id]
+            hod : [hod._id]
         });
 
-        const saveHOD = await newHod.save();
-        console.log(saveHOD);
+        const saveModerator = await newModerator.save();
+        console.log(saveModerator);
 
-        // Add COE ID to Admin's COE field
-        coe.hods.push(saveHOD._id);
-        await coe.save();
+        hod.moderators.push(saveModerator._id);
+        await hod.save();
 
-        return NextResponse.json({ error: `HOD successfully created with id: ${saveHOD._id}`}, {status: 200 });
+        return NextResponse.json({ error: `Moderator successfully created with id: ${saveModerator._id}`}, {status: 200 });
 
     } catch (e) {
         console.error(e);

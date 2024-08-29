@@ -1,6 +1,6 @@
 import { Document, Types } from "mongoose";
 
-export interface IHod extends Document{
+export interface ITeacher extends Document{
     name : string,
     dept : string,
     email : string,
@@ -12,7 +12,5 @@ export interface IHod extends Document{
     forgotPasswordTokenExpiry?: Date;
     verifyToken?: string;
     verifyTokenExpiry?: Date;
-    coe: Types.ObjectId;
-    teachers?: Types.ObjectId[];
-    moderators?: Types.ObjectId[];
+    hod: Types.ObjectId;
 }
