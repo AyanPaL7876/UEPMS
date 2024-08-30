@@ -1,7 +1,7 @@
-import mongoose, { Schema, model, Model } from "mongoose";
-import { ICoe } from "../interfaces/ICoe";
+import mongoose from "mongoose";
+const Schema = mongoose;
 
-const coeSchema = new Schema<ICoe>({
+const coeSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -35,12 +35,12 @@ const coeSchema = new Schema<ICoe>({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Admin',
   },
-  hods : [{
+  hods: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'HOD',
   }]
 });
 
-const COE: Model<ICoe> = mongoose.models.COE || model<ICoe>("COE", coeSchema);
+const COE = mongoose.models.COE || mongoose.model("COE", coeSchema);
 
-export default COE;
+module.exports = COE;
