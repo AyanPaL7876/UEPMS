@@ -52,4 +52,4 @@ const HODSchema = new Schema({
 
 const HOD = mongoose.models.HOD || mongoose.model("HOD", HODSchema);
 
-module.exports = HOD;
+export default HOD;

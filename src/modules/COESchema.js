@@ -43,4 +43,4 @@ const coeSchema = new Schema({
 
 const COE = mongoose.models.COE || mongoose.model("COE", coeSchema);
 
-module.exports = COE;
+export default COE;

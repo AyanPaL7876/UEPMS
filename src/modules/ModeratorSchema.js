@@ -43,4 +43,4 @@ const ModeratorSchema = new Schema({
 
 const Moderator = mongoose.models.Moderator || mongoose.model("Moderator", ModeratorSchema);
 
-module.exports = Moderator;
+export default Moderator;
