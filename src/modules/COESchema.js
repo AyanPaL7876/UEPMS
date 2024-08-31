@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-const Schema = mongoose;
+import mongoose, { Schema, model, models } from 'mongoose';
 
 const coeSchema = new Schema({
   name: {
@@ -41,6 +40,6 @@ const coeSchema = new Schema({
   }]
 });
 
-const COE = mongoose.models.COE || mongoose.model("COE", coeSchema);
+const COE = mongoose.models.COE || mongoose.model('COE', coeSchema);
 
 export default COE;

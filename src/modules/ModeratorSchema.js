@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-const Schema = mongoose;
+import mongoose, { Schema, model, models } from 'mongoose';
 
 const ModeratorSchema = new Schema({
     name: {

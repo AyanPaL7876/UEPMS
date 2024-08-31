@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.loginPage{
+    background-image: url("../pic/photo-1719937206158-cad5e6775044.avif");
+    @apply bg-cover;
+}
+
+.bg_blur{
+    -webkit-backdrop-filter: blur(3px);
+              backdrop-filter: blur(3px);
+  }

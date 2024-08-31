@@ -14,7 +14,7 @@ export async function POST(request=NextRequest) {
         const coe = await COE.findOne({ email });
         if (!coe) {
             return NextResponse.json(
-                { error: "Wrong E-mail address" },
+                { error: "E-mail not registered" },
                 { status: 404 }
             );
         }
@@ -29,7 +29,7 @@ export async function POST(request=NextRequest) {
 
         const tokenData = {
             id: coe._id,
-            name: coe.userName,
+            name: coe.name,
             email: coe.email,
             role: coe.role
         };
@@ -43,7 +43,8 @@ export async function POST(request=NextRequest) {
         });
 
         response.cookies.set("token", token, {
-            httpOnly: true,
+            path: "/",
+            httpOnly: false,
         });
 
         return response;

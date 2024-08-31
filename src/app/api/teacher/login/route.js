@@ -1,5 +1,5 @@
 import { connect } from '../../../../db/dbConnnect';
-import HOD from '../../../../modules/HODSchema';
+import Teacher from '../../../../modules/TeacherSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";
@@ -11,15 +11,15 @@ export async function POST(request=NextRequest) {
         const reqBody = await request.json();
         const { email, password } = reqBody;
 
-        const hod = await HOD.findOne({ email });
-        if (!hod) {
+        const teacher = await Teacher.findOne({ email });
+        if (!teacher) {
             return NextResponse.json(
                 { error: "E-mail not register" },
                 { status: 404 }
             );
         }
 
-        const validPass = await bcryptjs.compare(password, hod.password);
+        const validPass = await bcryptjs.compare(password, teacher.password);
         if (!validPass) {
             return NextResponse.json(
                 { error: "Invalid Password" },
@@ -28,11 +28,11 @@ export async function POST(request=NextRequest) {
         }
 
         const tokenData = {
-            id: hod._id,
-            name: hod.name,
-            email: hod.email,
-            role: hod.role,
-            dept: hod.dept
+            id: teacher._id,
+            name: teacher.userName,
+            email: teacher.email,
+            role: teacher.role,
+            dept: teacher.dept
         };
 
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: '1d' });
@@ -51,7 +51,6 @@ export async function POST(request=NextRequest) {
         return response;
 
     } catch (e) {
-        console.error("Login Error:", e);
         return NextResponse.json(
             { error: `Error: ${e.message}` },
             { status: 500 }

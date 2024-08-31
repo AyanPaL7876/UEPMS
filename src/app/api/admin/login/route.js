@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 connect();
 
-export async function POST(request=NextRequest) {
+export async function POST(request = NextRequest) {
     try {
         const reqBody = await request.json();
         const { email, password } = reqBody;
@@ -14,7 +14,7 @@ export async function POST(request=NextRequest) {
         const admin = await Admin.findOne({ email });
         if (!admin) {
             return NextResponse.json(
-                { error: "Wrong E-mail address" },
+                { error: "E-mail not registered" },
                 { status: 404 }
             );
         }
@@ -29,7 +29,7 @@ export async function POST(request=NextRequest) {
 
         const tokenData = {
             id: admin._id,
-            name: admin.userName,
+            name: admin.name,
             email: admin.email,
             role: admin.role
         };
@@ -39,12 +39,13 @@ export async function POST(request=NextRequest) {
         const response = NextResponse.json({
             message: "Logged in Successfully",
             success: true,
-            token : token
+            token: token
         });
 
         response.cookies.set("token", token, {
-            httpOnly: true,
-        });
+            path: "/",
+            httpOnly: false,
+          });
 
         return response;
 
