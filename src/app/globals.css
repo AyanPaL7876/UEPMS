@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .loginPage{
-    background-image: url("../pic/photo-1719937206158-cad5e6775044.avif");
+    background-image: url("../assets/photo-1719937206158-cad5e6775044.avif");
     @apply bg-cover;
 }
 
