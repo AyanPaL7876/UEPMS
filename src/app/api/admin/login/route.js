@@ -1,5 +1,5 @@
-import { connect } from '../../../../db/dbConnnect';
-import Admin from '../../../../modules/AdminSchema';
+import { connect } from '@/db/dbConnnect';
+import Admin from '@/modules/AdminSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";

@@ -1,6 +1,6 @@
-import { connect } from '../../../../db/dbConnnect';
-import HOD from '../../../../modules/HODSchema';
-import Teacher from '../../../../modules/TeacherSchema';
+import { connect } from '@/db/dbConnnect';
+import HOD from '@/modules/HODSchema';
+import Teacher from '@/modules/TeacherSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";

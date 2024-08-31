@@ -1,4 +1,4 @@
-import { connect } from '../../../../db/dbConnnect';
+import { connect } from '@/db/dbConnnect';
 import { NextResponse } from 'next/server';
 
 // Initialize the database connection

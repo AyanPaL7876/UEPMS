@@ -1,6 +1,6 @@
-import { connect } from '../../../../db/dbConnnect';
-import HOD from '../../../../modules/HODSchema';
-import Moderator from '../../../../modules/ModeratorSchema';
+import { connect } from '@/db/dbConnnect';
+import HOD from '@/modules/HODSchema';
+import Moderator from '@/modules/ModeratorSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";

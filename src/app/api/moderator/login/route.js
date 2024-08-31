@@ -1,5 +1,5 @@
 import { connect } from '@/db/dbConnnect';
-import Moderator from '../../../../modules/ModeratorSchema';
+import Moderator from '@/modules/ModeratorSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";

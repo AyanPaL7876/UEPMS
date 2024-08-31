@@ -1,5 +1,5 @@
-import { connect } from '../../../../db/dbConnnect';
-import COE from '../../../../modules/COESchema';
+import { connect } from '@/db/dbConnnect';
+import COE from '@/modules/COESchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 import jwt from "jsonwebtoken";

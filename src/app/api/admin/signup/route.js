@@ -1,5 +1,5 @@
-import { connect } from '../../../../db/dbConnnect'; // Adjust path as needed
-import Admin from '../../../../modules/AdminSchema'; // Adjust path as needed
+import { connect } from '@/db/dbConnnect'; // Adjust path as needed
+import Admin from '@/modules/AdminSchema'; // Adjust path as needed
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 
