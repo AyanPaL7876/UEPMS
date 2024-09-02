@@ -21,7 +21,7 @@ const ModeratorSchema = new Schema({
     },
     role: {
         type: String,
-        default: "HOD",
+        default: "Moderator",
     },
     isVerified: {
         type: Boolean,

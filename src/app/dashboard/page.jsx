@@ -2,6 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
+import CoeSection from '@/components/dashboard/COEDashboard';
+import HodSection from '@/components/dashboard/HodDashboard';
+import TeacherSection from '@/components/dashboard/TeacherDashboard';
+import ModeratorSection from '@/components/dashboard/ModeratorDashboard';
+import AdminSection from '@/components/dashboard/AdminDashboard';
 
 function DashboardPage() {
   const [role, setRole] = useState('');
@@ -50,46 +55,11 @@ function DashboardPage() {
           <h1>Token or Role not found...</h1>
         )}
       </div>
-      {role==='admin' && (
-        <div>
-          <button
-          type="button"
-          className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-          >
-            create COE
-          </button>
-        </div>
-      )}
-      {role==='COE' && (
-        <div>
-          <button
-          type="button"
-          className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-          >
-            create HOD
-          </button>
-        </div>
-      )}
-      {role==='HOD' && (
-        <div className="flex gap-20 ">
-        <div>
-          <button
-          type="button"
-          className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-          >
-            create Teacher
-          </button>
-        </div>
-        <div>
-          <button
-          type="button"
-          className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-          >
-            create Moderator
-          </button>
-        </div>
-        </div>
-      )}
+      {role==='admin' && <AdminSection/>}
+      {role==='COE' && <CoeSection/>}
+      {role==='HOD' && <HodSection/>}
+      {role==='Teacher' && <TeacherSection/>}
+      {role==='Moderator' && <ModeratorSection/>}
       </div>
     </div>
   );

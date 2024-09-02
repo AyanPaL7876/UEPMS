@@ -21,7 +21,7 @@ const TeacherSchema = new Schema({
     },
     role: {
         type: String,
-        default: "HOD",
+        default: "Teacher",
     },
     isVerified: {
         type: Boolean,
