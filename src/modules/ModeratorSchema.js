@@ -4,7 +4,6 @@ const ModeratorSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     dept: {
         type: String,
