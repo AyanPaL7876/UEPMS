@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
-function CreateTeacherForm({ role, onSubmit, dept, error, onCancel }) {
+function CreateTeacherForm({ role, onSubmit, dept, error }) {
   const [name, setName] = useState("");
-// const [dept, setDept] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,17 +14,14 @@ function CreateTeacherForm({ role, onSubmit, dept, error, onCancel }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (role !== "HOD") {
       alert("Only HODs can create teachers.");
       return;
     }
-
     if (password !== confirmPassword) {
-      setPasswordError("Passwords do not match.");
+      setPasswordError("Passwords do not match");
       return;
     }
-
     setPasswordError("");
     onSubmit({ name, dept, email, password });
   };
@@ -34,76 +31,117 @@ function CreateTeacherForm({ role, onSubmit, dept, error, onCancel }) {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-2xl py-2">Create Teacher</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-black">
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="py-2 px-4 rounded"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Department"
-          value={dept}
-          onChange={(e) => setDept(e.target.value)}
-          className="py-2 px-4 rounded"
-          required
-          disabled
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="py-2 px-4 rounded"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="py-2 px-4 rounded"
-          required
-        />
-        <div className="relative">
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className={`py-2 px-4 rounded w-full ${
-              passwordError ? "border-red-500 border" : ""
-            }`}
-            required
-          />
-          {passwordError && (
-            <p className="text-red-500 absolute top-full left-0 text-sm mt-1">
-              {passwordError}
-            </p>
-          )}
-        </div>
-        {error && <p className="text-red-500">{error}</p>}
-        <div className="flex justify-between mt-4">
-        <button
-            type="button"
-            onClick={handleCancel}
-            className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-          >
-            Create Teacher
-          </button>
-        </div>
-      </form>
+    <div className="flex flex-col min-h-screen w-full pb-5">
+      {/* Header Section */}
+      <header className="flex flex-col items-center justify-center py-8 text-center w-full">
+        <h1 className="text-3xl font-bold mb-4">Create Teacher</h1>
+        <p className="text-sm font-light max-w-xl mx-auto">
+          Add a new teacher to your department to enhance your educational team.
+        </p>
+      </header>
+
+      {/* Form Section */}
+      <main className="flex-1 flex justify-center items-center px-4">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-lg bg-white text-gray-800 rounded-xl shadow-lg p-8 space-y-6"
+        >
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="mt-1 w-full bg-gray-100 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="dept" className="block text-sm font-medium text-gray-700">
+              Department
+            </label>
+            <input
+              id="dept"
+              type="text"
+              placeholder="Department"
+              value={dept}
+              className="mt-1 w-full bg-gray-100 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              required
+              disabled
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 w-full bg-gray-100 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 w-full bg-gray-100 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+              Confirm Password
+            </label>
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="mt-1 w-full bg-gray-100 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              required
+            />
+          </div>
+
+          {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <div className="flex justify-between space-x-4">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg shadow-md transform transition duration-300 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 flex items-center justify-center"
+            >
+              <FaChalkboardTeacher className="w-6 h-6 mr-2" />
+              Create Teacher
+            </button>
+          </div>
+        </form>
+      </main>
     </div>
   );
 }

@@ -58,9 +58,9 @@ function Page() {
   }, []);
 
   return (
-    <div className='loginPage w-screen h-screen text-white font-bold'>
-      <div className='w-screen h-screen flex flex-col justify-start items-center gap-y-56'>
-        <div className='bg_blur px-10 py-7 border-2 bg-[#4848483e] rounded-xl mt-10'>
+    <div className=' text-white font-bold'>
+      <div className='flex flex-col justify-start items-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white'>
+        <div>
           {role === 'HOD' ? (
             <CreateModeratorForm role={role} onSubmit={handleSignup} dept={dept} error={error}/>
           ) : (

@@ -1,8 +1,6 @@
 import { Inter } from "next/font/google";
-import { IoHome } from "react-icons/io5";
-import { FaUser } from "react-icons/fa";
-import { TbLogout } from "react-icons/tb";
 import Head from "next/head";
+import NavBar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,32 +17,13 @@ export default function RootLayout({ children }) {
         <meta name="description" content={metadata.description} />
       </Head>
       <body className={inter.className}>
-        <nav className=" bg-gradient-to-r from-purple-500 to-indigo-500 text-white p-6 shadow-lg w-full">
-          <div className="flex justify-between items-center mx-0">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
-            <ul className="flex space-x-3.5 text-lg">
-              <li>
-                <a href="/dashboard" className="hover:text-indigo-200" aria-label="Home">
-                  <IoHome className="w-7 h-7 mx-2" />
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-indigo-200" aria-label="User Profile">
-                  <FaUser className="w-7 h-7 mx-2" />
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-indigo-200" aria-label="Logout">
-                  <TbLogout className="w-7 h-7 mx-2" />
-                </a>
-              </li>
-            </ul>
-          </div>
+        <nav className=" bg-gradient-to-r from-purple-500 to-indigo-500 text-white p-5 shadow-lg w-full">
+          <NavBar/>
         </nav>
         {children}
         <footer className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-6">
         <div className="container mx-auto text-center">
-          <p className="text-sm">&copy; 2024 University Exam Question Paper Management System.</p>
+          <p className="text-sm"> 2024 &copy; University Exam Question Paper Management System.</p>
         </div>
       </footer>
       </body>
