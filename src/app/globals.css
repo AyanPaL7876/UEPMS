@@ -10,4 +10,8 @@
 .bg_blur{
     -webkit-backdrop-filter: blur(3px);
               backdrop-filter: blur(3px);
-  }
+}
+
+* {
+  box-sizing: border-box;
+}

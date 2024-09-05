@@ -31,21 +31,21 @@ function DashboardPage() {
   }, []);
 
   return (
-    <div className='loginPage w-screen h-screen text-white font-bold'>
-      <div className='bg_blur w-screen h-screen flex flex-col justify-start items-center gap-y-56 '>
-        <div>
+    <div className='text-white font-bold'>
+      {/* <div className='flex flex-col justify-start items-center '> */}
+        {/* <div>
           {role ? (
             <h1 className='text-2xl py-2'>Welcome, {name} ({role})!</h1>
           ) : (
             <h1>Token or Role not found...</h1>
           )}
-        </div>
+        </div> */}
         {role === 'admin' && <AdminSection />}
         {role === 'COE' && <CoeSection />}
         {role === 'HOD' && <HodSection />}
         {role === 'Teacher' && <TeacherSection />}
         {role === 'Moderator' && <ModeratorSection />}
-      </div>
+      {/* </div> */}
     </div>
   );
 }
