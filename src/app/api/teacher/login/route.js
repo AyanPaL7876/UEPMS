@@ -29,7 +29,7 @@ export async function POST(request=NextRequest) {
 
         const tokenData = {
             id: teacher._id,
-            name: teacher.userName,
+            name: teacher.name,
             email: teacher.email,
             role: teacher.role,
             dept: teacher.dept

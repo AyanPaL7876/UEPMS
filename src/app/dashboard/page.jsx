@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import CoeSection from '@/components/dashboard/COEDashboard';
+import CoeSection from '@/components/dashboard/CoeDashboard';
 import HodSection from '@/components/dashboard/HodDashboard';
 import TeacherSection from '@/components/dashboard/TeacherDashboard';
 import ModeratorSection from '@/components/dashboard/ModeratorDashboard';
