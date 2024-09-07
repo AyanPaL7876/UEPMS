@@ -54,11 +54,7 @@ export default function UserList({ api, userType }) {
 
   return (
     <div className="w-full mx-auto overflow-hidden items-center justify-center">
-      {isLoading ? (
-        <div className="flex items-center justify-center h-64">
-          <Spinner />
-        </div>
-      ) : error ? (
+      {error ? (
         <p className="text-center p-4 text-red-400">{error}</p>
       ) : (
         <div className='flex flex-col gap-5 px-10 items-center justify-center w-full'>

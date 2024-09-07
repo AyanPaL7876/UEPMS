@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
         <meta name="description" content={metadata.description} />
       </Head>
       <body className={inter.className}>
-        <nav className=" bg-gradient-to-r from-purple-500 to-indigo-500 text-white p-5 shadow-lg w-full">
+        <nav className=" bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-5 py-4 shadow-lg w-full">
           <NavBar/>
         </nav>
         {children}

@@ -1,10 +1,8 @@
-"use client";
-
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaUserPlus } from "react-icons/fa";
 
-function Signup({ role, onSubmit, dept, error, inputFields, userType }) {
+function Signup({ role, onSubmit, error, inputFields, userType }) {
   const [formData, setFormData] = useState(
     inputFields.reduce((acc, field) => ({ ...acc, [field.name]: field.value || "" }), {})
   );
@@ -15,16 +13,12 @@ function Signup({ role, onSubmit, dept, error, inputFields, userType }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (role && role !== "Admin" && userType !== "HOD") {
-    //   alert(`Only Admins can create ${userType}s.`);
-    //   return;
-    // }
     if (formData.password !== formData.confirmPassword) {
       setPasswordError("Passwords do not match");
       return;
     }
     setPasswordError("");
-    onSubmit({ ...formData, dept });
+    onSubmit(formData);  // Pass the entire formData object
   };
 
   return (

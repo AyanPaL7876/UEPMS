@@ -56,7 +56,7 @@ function Navbar() {
 
   return (
     <div className="flex flex-row justify-between">
-      <h1 className="text-2xl font-bold">{name}{role?`, (${role})`:""} {dept?`, ${dept}`:""}</h1>
+      <h1 className="text-xl font-bold">{name}{role?`, (${role})`:""} {dept?`, ${dept}`:""}</h1>
       <ul className="flex space-x-3.5 text-lg">
         <li>
           <a
@@ -64,7 +64,7 @@ function Navbar() {
             className="hover:text-indigo-200"
             aria-label="Home"
           >
-            <IoHome className="w-7 h-7 mx-2" />
+            <IoHome className="w-6 h-6 mx-2" />
           </a>
         </li>
         <li>
@@ -73,7 +73,7 @@ function Navbar() {
             className="hover:text-indigo-200"
             aria-label="User Profile"
           >
-            <FaUser className="w-7 h-7 mx-2" />
+            <FaUser className="w-6 h-6 mx-2" />
           </a>
         </li>
         <li>
@@ -82,7 +82,7 @@ function Navbar() {
             className="hover:text-indigo-200 cursor-pointer"
             aria-label="Logout"
           >
-            <TbLogout className="w-7 h-7 mx-2" />
+            <TbLogout className="w-6 h-6 mx-2" />
           </button>
         </li>
       </ul>

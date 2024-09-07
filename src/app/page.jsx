@@ -12,6 +12,7 @@ const Page = () => {
 
   const handleLoginIn = async ({ email, password, role }) => {
     setIsLoading(true);
+    setError(""); // Clear any previous errors
     try {
       const userType = role.toLowerCase();
       const res = await fetch(`/api/${userType}/login`, {
@@ -28,7 +29,7 @@ const Page = () => {
         router.push("/dashboard"); // Change '/dashboard' to your desired route
       } else {
         const errorData = await res.json();
-        setError(errorData.error);
+        setError(errorData.error || "Login failed. Please try again.");
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
@@ -39,17 +40,11 @@ const Page = () => {
   };
 
   return (
-    <div className="loginPage flex flex-col items-center justify-center min-h-screen py-2">
-      <div className="bg_blur px-10 py-7 border-2 bg-[#4848483e] rounded-xl">
-        <h1 className="text-2xl font-bold mb-4 text-white">Log-In</h1>
-        {isLoading ? (
-          <div className="flex justify-center items-center">
-            <Spinner />
-          </div>
-        ) : (
-          <LoginForm onSubmit={handleLoginIn} error={error} />
-        )}
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-r from-purple-500 to-indigo-500">
+      <main className="bg_blur px-10 py-7 border-2 bg-[#4848483e] rounded-xl">
+        <h1 className="text-2xl font-bold mb-4 text-white">Log In</h1>
+        <LoginForm onSubmit={handleLoginIn} error={error} isLoading={isLoading} />
+      </main>
     </div>
   );
 };
