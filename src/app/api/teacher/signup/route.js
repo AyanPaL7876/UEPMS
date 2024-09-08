@@ -79,7 +79,7 @@ export async function POST(request = NextRequest) {
         hod.teachers.push(saveTeacher._id);
         await hod.save();
 
-        return NextResponse.json({ message: `Teacher successfully created with id: ${saveTeacher._id}` }, { status: 200 });
+        return NextResponse.json({ message: `Teacher creation successful with id: ${saveTeacher._id}` }, { status: 200 });
 
     } catch (e) {
         console.error(e);

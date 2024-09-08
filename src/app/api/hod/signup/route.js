@@ -19,7 +19,7 @@ async function authenticateCoe(request = NextRequest){
     try{
         const decoded = jwt.verify(token,process.env.TOKEN_SECRET);
         if(decoded.role != 'COE'){
-            return NextResponse.json({ error: "Not authorized. only COE can create HOD" }, { status: 403 });
+            return NextResponse.json({ error: "Not authorized. Only COE can create HOD" }, { status: 403 });
         }
 
         return decoded;
@@ -78,7 +78,7 @@ export async function POST(request= NextRequest) {
         coe.hods.push(saveHOD._id);
         await coe.save();
 
-        return NextResponse.json({ error: `HOD successfully created with id: ${saveHOD._id}`}, {status: 200 });
+        return NextResponse.json({ error: `HOD creation successful with id: ${saveHOD._id}`}, {status: 200 });
 
     } catch (e) {
         console.error(e);

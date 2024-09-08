@@ -77,7 +77,7 @@ export async function POST(request= NextRequest) {
         hod.moderators.push(saveModerator._id);
         await hod.save();
 
-        return NextResponse.json({ error: `Moderator successfully created with id: ${saveModerator._id}`}, {status: 200 });
+        return NextResponse.json({ error: `Moderator creation successful with id: ${saveModerator._id}`}, {status: 200 });
 
     } catch (e) {
         console.error(e);

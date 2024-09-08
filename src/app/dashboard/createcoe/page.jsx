@@ -38,7 +38,7 @@ function Page() {
       } else {
         const errorData = await res.json();
         setError(errorData.error);
-        console.error("Error during coe creation:", errorData.error);
+        console.error("Error during COE creation:", errorData.error);
       }
     } catch (error) {
       setError("An unexpected error occurred.");

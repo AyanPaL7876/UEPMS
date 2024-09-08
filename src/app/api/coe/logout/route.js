@@ -7,7 +7,7 @@ connect();
 export async function POST() {
     try {
         const response = NextResponse.json({
-            message: "Logout successfully",
+            message: "Loggout successfully",
             status: 200,
             success: true
         });

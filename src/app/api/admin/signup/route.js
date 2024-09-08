@@ -33,7 +33,7 @@ export async function POST(request= NextRequest) {
 
         const saveAdmin = await newAdmin.save();
         console.log(saveAdmin);
-        return NextResponse.json({ error: `User successfully created with user id: ${saveAdmin._id}`, status: 200 });
+        return NextResponse.json({ error: `User created successfylly with user id: ${saveAdmin._id}`, status: 200 });
 
     } catch (e) {
         console.error(e);
