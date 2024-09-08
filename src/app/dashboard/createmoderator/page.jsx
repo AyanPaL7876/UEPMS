@@ -2,14 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import { getTokenFromCookies, decodeToken } from '@/utils/auth';
-import CreateModeratorForm from '@/components/signup/CreateModeratorForm';
 import { useRouter } from 'next/navigation';
+import Signup from '@/components/Signup';
 
 function Page() {
   const [role, setRole] = useState('');
   const [dept, setDept] = useState('');
   const [error, setError] = useState("");
   const router = useRouter();
+
+  const inputFields = [
+    { name: "userType", type: "select", label: "User Type", options: ["External", "Internal"] },
+    { name: "name", type: "text", label: "Name" },
+    { name: "dept", type: "text", label: "Department", value: dept, disabled: true },
+    { name: "email", type: "email", label: "Email" },
+    { name: "password", type: "password", label: "Password" },
+    { name: "confirmPassword", type: "password", label: "Confirm Password" },
+  ];
 
   const handleSignup = async ({ name, dept, email, password }) => {
     try {
@@ -62,7 +71,7 @@ function Page() {
       <div className='flex flex-col justify-start items-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white'>
         <div>
           {role === 'HOD' ? (
-            <CreateModeratorForm role={role} onSubmit={handleSignup} dept={dept} error={error}/>
+            <Signup role={role} onSubmit={handleSignup} dept={dept} error={error} inputFields={inputFields} userType="Moderator"/>
           ) : (
             <h1>Only HODs can create Moderators.</h1>
           )}

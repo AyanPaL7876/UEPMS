@@ -28,6 +28,7 @@ export async function POST(request=NextRequest) {
         }
 
         const tokenData = {
+            name: coe.name,
             id: coe._id,
             name: coe.name,
             email: coe.email,
