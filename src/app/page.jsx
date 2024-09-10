@@ -40,7 +40,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-r from-purple-500 to-indigo-500">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 body-bg">
       <main className="bg_blur px-10 py-7 border-2 bg-[#4848483e] rounded-xl">
         <h1 className="text-2xl font-bold mb-4 text-white">Log In</h1>
         <LoginForm onSubmit={handleLoginIn} error={error} isLoading={isLoading} />

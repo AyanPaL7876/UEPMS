@@ -2,16 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-.loginPage{
-    background-image: url("../assets/photo-1719937206158-cad5e6775044.avif");
-    @apply bg-cover;
-}
 
 .bg_blur{
     -webkit-backdrop-filter: blur(3px);
               backdrop-filter: blur(3px);
 }
 
+body {
+  @apply bg-gradient-to-br from-sky-950 to-blue-600 h-screen;
+}
+
 * {
   box-sizing: border-box;
+  overflow-y: auto; 
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.nav_bg{
+  @apply bg-gradient-to-r from-gray-900 to-sky-950;
+}
+.body_bg{
+  @apply bg-gradient-to-br from-gray-900 via-sky-950 to-blue-800 ;
+}
+.footer_bg{
+  @apply bg-gradient-to-r from-sky-950 to-blue-800;
+}
+
+.icon_shadow{
+  filter: drop-shadow(3px 5px 4px #000000ec);
+}
+
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.col {
+  flex: none;
 }

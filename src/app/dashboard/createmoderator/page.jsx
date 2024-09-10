@@ -68,7 +68,7 @@ function Page() {
 
   return (
     <div className=' text-white font-bold'>
-      <div className='flex flex-col justify-start items-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white'>
+      <div className='flex flex-col justify-start items-center text-white'>
         <div>
           {role === 'HOD' ? (
             <Signup role={role} onSubmit={handleSignup} dept={dept} error={error} inputFields={inputFields} userType="Moderator"/>

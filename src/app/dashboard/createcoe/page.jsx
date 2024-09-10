@@ -13,7 +13,6 @@ function Page() {
 
   const inputFields = [
     { name: "name", type: "text", label: "Name" },
-    // { name: "dept", type: "text", label: "Department", value: dept, disabled: true },
     { name: "email", type: "email", label: "Email" },
     { name: "password", type: "password", label: "Password" },
     { name: "confirmPassword", type: "password", label: "Confirm Password" },
@@ -55,8 +54,6 @@ function Page() {
 
       if (decodedToken && decodedToken.role) {
         setRole(decodedToken.role);
-        // setDept(decodedToken.dept);
-        // console.log(`dept : ${decodedToken.dept}`);
       } else {
         console.error("Role not found in the token");
       }
@@ -67,7 +64,7 @@ function Page() {
 
   return (
     <div className=' text-white font-bold'>
-      <div className='flex flex-col justify-start items-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white'>
+      <div className='flex flex-col justify-start items-center text-white'>
         <div>
           {role === 'admin' ? (
             <Signup role={role} onSubmit={handleSignup} error={error} inputFields={inputFields} userType="COE"/>

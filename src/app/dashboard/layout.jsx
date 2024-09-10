@@ -16,12 +16,12 @@ export default function RootLayout({ children }) {
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
       </Head>
-      <body className={inter.className}>
-        <nav className=" bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-5 py-4 shadow-lg w-full">
+      <body className={`${inter.className} body_bg`} >
+        <nav className=" bg-gradient-to-r text-white px-5 py-4 shadow-lg w-full fixed top-0 left-0 nav_bg">
           <NavBar/>
         </nav>
         {children}
-        <footer className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-6">
+        <footer className="bg-gradient-to-r text-white py-3 footer_bg">
         <div className="container mx-auto text-center">
           <p className="text-sm"> 2024 &copy; University Exam Question Paper Management System.</p>
         </div>

@@ -31,7 +31,7 @@ function DashboardPage() {
   }, []);
 
   return (
-    <div className='text-white font-bold h-screen'>
+    <div className='text-white font-bold'>
       {/* <div className='flex flex-col justify-start items-center '> */}
         {/* <div>
           {role ? (
