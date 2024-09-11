@@ -1,10 +1,3 @@
-import { useRouter } from "next/navigation";
-import CteareTeacher from "@/assets/createTeacher.svg";
-import CteareModerator from "@/assets/createModerator.svg";
-import viewTeacher from "@/assets/viewTeacher.svg";
-import viewModerator from "@/assets/viewModerator.svg";
-import selectTeacher from "@/assets/selectTeacher.svg";
-import selectModerator from "@/assets/selectModerator.svg";
 import Image from 'next/image';
 
 function Button({ Icon, text, onClick }) {
@@ -24,47 +17,17 @@ function Button({ Icon, text, onClick }) {
 }
 
 
-export default function HodSection() {
-  const router = useRouter();
-
-  const buttons = [
-    {
-      Icon: CteareTeacher,
-      text: "Create Teacher",
-      path: "dashboard/createteacher",
-    },
-    {
-      Icon: CteareModerator,
-      text: "Create Moderator",
-      path: "dashboard/createmoderator",
-    },
-    { Icon: viewTeacher, text: "All Teachers", path: "/list/teacherlist" },
-    {
-      Icon: viewModerator,
-      text: "All Moderators",
-      path: "/list/moderatorlist",
-    },
-    {
-      Icon: selectTeacher,
-      text: "Select Teacher",
-      path: "/list/moderatorlist",
-    },
-    {
-      Icon: selectModerator,
-      text: "Select Moderators",
-      path: "/list/moderatorlist",
-    },
-  ];
+export default function Dashboard({ buttons , role }) {
 
   return (
     <div className="flex flex-col w-auto min-h-[95vh]">
       <header className="flex items-end justify-center text-white pt-[20vh]">
         <div className="mb-2">
           <h1 className="text-5xl font-extrabold p-3 text-center">
-            Welcome to the HOD Section
+            Welcome to the {role} Section
           </h1>
           <p className="text-lg font-light text-center">
-            Manage teachers and moderators effortlessly.
+            Manage your deperment with elese.
           </p>
         </div>
       </header>
