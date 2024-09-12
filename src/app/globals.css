@@ -9,7 +9,7 @@
 }
 
 body {
-  @apply bg-gradient-to-br from-sky-950 to-blue-600 h-screen;
+  @apply bg-gradient-to-br from-gray-900 via-sky-950 to-blue-800 h-screen;
 }
 
 * {
@@ -31,6 +31,13 @@ body {
 }
 .footer_bg{
   @apply bg-gradient-to-r from-sky-950 to-blue-800;
+}
+
+.btn_color{
+  @apply bg-gradient-to-r from-cyan-400 to-teal-400 text-gray-900 hover:from-cyan-500 hover:to-teal-500;
+}
+.btn_hover{
+  @apply bg-gradient-to-r from-transparent to-transparent  hover:from-cyan-500 hover:to-teal-500;
 }
 
 .icon_shadow{

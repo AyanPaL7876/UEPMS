@@ -84,17 +84,16 @@ function DashboardPage() {
     <div className='text-white font-bold'>
       <div className='flex flex-col justify-start items-center'>
         <div>
-          {role ? (
-            <h1 className='text-2xl py-2'>Welcome, {name} ({role})!</h1>
-          ) : (
-            <h1>Token or Role not found...</h1>
-          )}
+          {role  === 'admin' ? <Dashboard buttons={AdminButtons} role={role} /> :
+            (role === 'COE') ? <Dashboard buttons={COEButtons} role={role}/> :
+            (role === 'HOD') ? <Dashboard buttons={HODButtons} role={role} /> :
+            (role === 'Teacher') ? <Dashboard buttons={TeacherButtons} role={role} /> :
+            (role === 'Moderator') ? <Dashboard buttons={ModeratorButtons} role={role} /> :
+            <div className=' pt-16 h-screen'>
+              <h1 className='bg-red-300 text-2xl text-white'>Token or Role not found...</h1>
+            </div>
+          }
         </div>
-        {role === 'admin' && <Dashboard buttons={AdminButtons} role={role} />}
-        {role === 'COE' && <Dashboard buttons={COEButtons} role={role}/>}
-        {role === 'HOD' && <Dashboard buttons={HODButtons} role={role} />}
-        {role === 'Teacher' && <Dashboard buttons={TeacherButtons} role={role} />}
-        {role === 'Moderator' && <Dashboard buttons={ModeratorButtons} role={role} />}
       </div>
     </div>
   );

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import LoginForm from "@/components/loggin";
-import { Spinner } from "@/components/Spinner";
 
 const Page = () => {
   const [error, setError] = useState("");
@@ -12,7 +11,7 @@ const Page = () => {
 
   const handleLoginIn = async ({ email, password, role }) => {
     setIsLoading(true);
-    setError(""); // Clear any previous errors
+    setError("");
     try {
       const userType = role.toLowerCase();
       const res = await fetch(`/api/${userType}/login`, {
@@ -40,9 +39,14 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 body-bg">
-      <main className="bg_blur px-10 py-7 border-2 bg-[#4848483e] rounded-xl">
-        <h1 className="text-2xl font-bold mb-4 text-white">Log In</h1>
+    <div className="flex flex-col items-center justify-start min-h-[95vh] py-2 body_bg">
+      <main className="px-10 py-7 flex flex-col items-center justify-around w-1.5/4">
+        <div className="text-white mb-12">
+          <h1 className="text-4xl font-bold mb-1  text-center">Welcome Back</h1>
+          <p className="text-lg font-light text-center">
+            Enter your credentials to access your account.
+          </p>
+        </div>
         <LoginForm onSubmit={handleLoginIn} error={error} isLoading={isLoading} />
       </main>
     </div>

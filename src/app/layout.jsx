@@ -11,7 +11,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <footer className="bg-gradient-to-r text-white py-3 footer_bg">
+          <div className="container mx-auto text-center">
+            <p className="text-sm">
+              2024 &copy; University Exam Question Paper Management System.
+            </p>
+          </div>
+        </footer>
+      </body>
     </html>
   );
 }
