@@ -19,9 +19,9 @@ function Page() {
     { name: "confirmPassword", type: "password", label: "Confirm Password" },
   ];
 
-  const handleSignup = async ({ name, dept, email, password }) => {
+  const handleSignup = async ({ name, dept, email, password, role }) => {
     try {
-      const res = await fetch(`/api/teacher/signup`, {
+      const res = await fetch(`/api/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

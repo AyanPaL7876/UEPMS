@@ -10,7 +10,9 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ email, password, role });
+    console.log("Email:", email);
+    console.log("Password:", email);
+    onSubmit({ email, password});
   };
 
   return (
@@ -20,7 +22,7 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="border border-gray-300 py-2 px-3 rounded-xl text-black outline-none"
+          className="border border-gray-100 py-2 px-3 rounded-xl text-black outline-none"
         >
           <option value="Admin">Admin</option>
           <option value="COE">COE</option>

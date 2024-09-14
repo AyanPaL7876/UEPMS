@@ -9,23 +9,20 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleLoginIn = async ({ email, password, role }) => {
+  const handleLoginIn = async ({ email, password}) => {
     setIsLoading(true);
     setError("");
     try {
-      const userType = role.toLowerCase();
-      const res = await fetch(`/api/${userType}/login`, {
+      const res = await fetch(`/api/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, role }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (res.ok) {
-        const data = await res.json();
-        // Redirect to the appropriate dashboard based on role
-        router.push("/dashboard"); // Change '/dashboard' to your desired route
+        router.push("/dashboard");
       } else {
         const errorData = await res.json();
         setError(errorData.error || "Login failed. Please try again.");

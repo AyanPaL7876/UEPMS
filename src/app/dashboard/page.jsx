@@ -17,7 +17,6 @@ import viewPaper from "@/assets/viewAll/paper.svg";
 
 import selectTeacher from "@/assets/selectTeacher.svg";
 import selectModerator from "@/assets/selectModerator.svg";
-import VisitPaper from "@/assets/selectTeacher.svg";
 
 import { getTokenFromCookies, decodeToken } from '@/utils/auth';
 
@@ -60,12 +59,12 @@ function DashboardPage() {
   ];
   
   const HODButtons = [
-    {Icon: CteareTeacher,text: "Create Teacher",path: "dashboard/createteacher"},
-    {Icon: CteareModerator,text: "Create Moderator",path: "dashboard/createmoderator"},
-    {Icon: viewTeacher, text: "All Teachers", path: "/list/teacherlist" },
-    {Icon: viewModerator,text: "All Moderators",path: "/list/moderatorlist"},
-    {Icon: selectTeacher,text: "Select Teacher",path: "/list/moderatorlist"},
-    {Icon: selectModerator,text: "Select Moderators",path: "/list/moderatorlist"},
+    { Icon: CteareTeacher, text: "Create Teacher", path: "/dashboard/createteacher" },
+    { Icon: CteareModerator, text: "Create Moderator", path: "/dashboard/createmoderator" },
+    { Icon: viewTeacher, text: "All Teachers", path: "/list/teacherlist" },
+    { Icon: viewModerator, text: "All Moderators", path: "/list/moderatorlist" },
+    { Icon: selectTeacher, text: "Select Teacher", path: "/list/teacherlist" },
+    { Icon: selectModerator, text: "Select Moderators", path: "/list/moderatorlist" },
   ];
   
   const TeacherButtons = [
@@ -79,13 +78,12 @@ function DashboardPage() {
     { Icon: viewHOD, text: "Visit all Papers", path: "#" },
   ];
 
-
   return (
     <div className='text-white font-bold'>
       <div className='flex flex-col justify-start items-center'>
         <div>
-          {role  === 'admin' ? <Dashboard buttons={AdminButtons} role={role} /> :
-            (role === 'COE') ? <Dashboard buttons={COEButtons} role={role}/> :
+          {role === 'admin' ? <Dashboard buttons={AdminButtons} role={role} /> :
+            (role === 'COE') ? <Dashboard buttons={COEButtons} role={role} /> :
             (role === 'HOD') ? <Dashboard buttons={HODButtons} role={role} /> :
             (role === 'Teacher') ? <Dashboard buttons={TeacherButtons} role={role} /> :
             (role === 'Moderator') ? <Dashboard buttons={ModeratorButtons} role={role} /> :

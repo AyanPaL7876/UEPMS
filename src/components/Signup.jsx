@@ -18,7 +18,7 @@ function Signup({ role, onSubmit, error, inputFields, userType }) {
       return;
     }
     setPasswordError("");
-    onSubmit(formData);  // Pass the entire formData object
+    onSubmit(formData,"Teacher");  // Pass the entire formData object
   };
 
   return (

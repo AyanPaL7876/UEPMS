@@ -14,10 +14,13 @@ const questionSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
     },
-    textQuestion: {
+    text: {
         type: String,
         required: true
     },
+    option: [{
+        type: String,
+    }],
     createdAt: {
         type: Date,
         default: Date.now
@@ -26,4 +29,4 @@ const questionSchema = new mongoose.Schema({
 
 const Question = mongoose.models.Question || mongoose.model('Question', questionSchema);
 
-module.exports = Question;
+export default Question;
