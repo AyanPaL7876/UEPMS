@@ -67,7 +67,7 @@ const CreateHODPage = () => {
 
   return (
       <Signup
-        userType="Teacher"
+        userType="HOD"
         inputFields={inputFields}
         onSubmit={handleCreateHOD}
         error={error}

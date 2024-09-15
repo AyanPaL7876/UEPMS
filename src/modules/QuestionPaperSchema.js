@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
 const questionPaperSchema = new mongoose.Schema({
-  acc: {
-    type: [String],
+  year: {
+    type: String,
     required: true,
   },
-  programName: {
-    type: [String],
+  programName: [{
+    type: String,
     required: true,
-  },
+  }],
   semester: {
     type: String,
     enum: ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"],
@@ -47,19 +47,19 @@ const questionPaperSchema = new mongoose.Schema({
   },
 
   department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Department",
+    type : String,
+    required: true,
   },
 
   allocatedTeachers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Teacher",
     },
   ],
   allocatedModerators: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Moderator",
   },
   status: {
     type: String,
@@ -76,6 +76,6 @@ const questionPaperSchema = new mongoose.Schema({
   },
 });
 
-const QuestionPaper = mongoose.model("QuestionPaper", questionPaperSchema);
+const QuestionPaper = mongoose.models.QuestionPaper || mongoose.model("QuestionPaper", questionPaperSchema);
 
-module.exports = QuestionPaper;
+export default QuestionPaper;
