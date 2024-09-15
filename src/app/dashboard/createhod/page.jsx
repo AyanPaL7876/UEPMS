@@ -1,57 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { getTokenFromCookies, decodeToken } from '@/utils/auth';
-import Signup from '@/components/Signup';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Signup from "@/components/Signup";
+import { getTokenFromCookies, decodeToken } from "@/utils/auth";
 
-function Page() {
-  const [role, setRole] = useState('');
+const CreateHODPage = () => {
+  const [role, setRole] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const inputFields = [
-    { name: "name", type: "text", label: "Name" },
-    { name: "dept", type: "text", label: "Department" },
-    { name: "email", type: "email", label: "Email" },
-    { name: "password", type: "password", label: "Password" },
-    { name: "confirmPassword", type: "password", label: "Confirm Password" },
-  ];
-
-  const handleSignup = async (formData) => {
-    try {
-      const res = await fetch(`/api/hod/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${getTokenFromCookies()}`
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        console.log(data);
-        console.log("HOD created successfully");
-        router.push("/dashboard"); 
-      } else {
-        const errorData = await res.json();
-        setError(errorData.error);
-        console.error("Error during HOD creation:", errorData.error);
-      }
-    } catch (error) {
-      setError("An unexpected error occurred.");
-      console.error("An unexpected error occurred:", error);
-    }
-  };
-
   useEffect(() => {
     const token = getTokenFromCookies();
-
     if (token) {
       const decodedToken = decodeToken(token);
-      console.log("Decoded Token:", decodedToken);
-
       if (decodedToken && decodedToken.role) {
         setRole(decodedToken.role);
       } else {
@@ -62,19 +24,56 @@ function Page() {
     }
   }, []);
 
-  return (
-    <div className='text-white font-bold'>
-      <div className='flex flex-col justify-start items-center text-white'>
-        <div>
-          {role === 'COE' ? (
-            <Signup role={role} onSubmit={handleSignup} error={error} inputFields={inputFields} userType="HOD"/>
-          ) : (
-            <h1>Only COEs can create HODs.</h1>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+  const handleCreateHOD = async (formData) => {
+    try {
+      const res = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          dept: formData.dept,
+          email: formData.email,
+          password: formData.password,
+          role: "HOD",
+        }),
+      });
 
-export default Page;
+      if (res.ok) {
+        router.push("/dashboard");
+      } else {
+        const errorData = await res.json();
+        setError(errorData.error || "Error during teacher creation");
+      }
+    } catch (error) {
+      setError("An unexpected error occurred.");
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+
+  if (role !== "COE") {
+    return <h1 className="text-white font-bold">Only COEs can create HOD.</h1>;
+  }
+
+  const inputFields = [
+    { name: "name", type: "text", label: "Name" },
+    { name: "dept", type: "text", label: "Department" },
+    { name: "email", type: "email", label: "Email" },
+    { name: "password", type: "password", label: "Password" },
+    { name: "confirmPassword", type: "password", label: "Confirm Password" },
+  ];
+
+  return (
+      <Signup
+        userType="Teacher"
+        inputFields={inputFields}
+        onSubmit={handleCreateHOD}
+        error={error}
+      />
+  );
+};
+
+
+export default CreateHODPage;

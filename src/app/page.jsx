@@ -36,8 +36,8 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-[95vh] py-2 body_bg">
-      <main className="px-10 py-7 flex flex-col items-center justify-around w-1.5/4">
+    <div className="flex flex-col items-center justify-center min-h-[95vh] py-2 body_bg">
+      <main className="pb-10 py-7 flex flex-col items-center justify-around w-1.5/4">
         <div className="text-white mb-12">
           <h1 className="text-4xl font-bold mb-1  text-center">Welcome Back</h1>
           <p className="text-lg font-light text-center">

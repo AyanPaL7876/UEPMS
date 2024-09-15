@@ -10,7 +10,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request = NextRequest) {
   const jsonBody = await request.json();
-  console.log(jsonBody);
   const { email, password } = jsonBody;
 
   await connect();
@@ -32,11 +31,21 @@ export async function POST(request = NextRequest) {
       return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 400 });
     }
 
-    const token = jwt.sign(
-      { id: user._id, name: user.name, role: user.role },
-      process.env.TOKEN_SECRET,
-      { expiresIn: '1d' }
-    );
+    // Construct the payload
+let payload = {
+  id: user._id,
+  name: user.name,
+  email: user.email,
+  role: user.role,
+};
+
+// Conditionally add `dept` if the role is neither 'admin' nor 'COE'
+if (user.role !== 'admin' && user.role !== 'COE') {
+  payload.dept = user.dept;
+}
+
+// Sign the token with the constructed payload
+const token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '1d' });
 
     console.log(token);
 

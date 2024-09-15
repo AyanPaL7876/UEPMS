@@ -1,4 +1,4 @@
-import dbConnect from '@/db/dbConnnect';
+import { connect } from '@/db/dbConnnect';
 import Admin from '@/modules/AdminSchema';
 import COE from '@/modules/COESchema';
 import HOD from '@/modules/HODSchema';
@@ -6,23 +6,28 @@ import Teacher from '@/modules/TeacherSchema';
 import Moderator from '@/modules/ModeratorSchema';
 import bcrypt from 'bcryptjs';
 import { authMiddleware } from '@/utils/authMiddleware';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request) {
+export async function POST(request = NextRequest) {
   const { name, email, password, role, dept } = await request.json();
+  await connect();
 
-  await dbConnect();
+  // Call middleware
+  const { success, user, message, status } = await authMiddleware(['admin', 'COE', 'HOD'], request);
+  
+  if (!success) {
+    return NextResponse.json({ success: false, message }, { status });
+  }
 
-  const reqUser = await authMiddleware(['admin', 'COE', 'HOD'], request);  // Applying middleware
-  if (!reqUser) return new Response(JSON.stringify({ success: false, message: 'Unauthorized' }), { status: 403 });
+  const reqUser = user;
 
   try {
-    // Check if the current user has the right to create a user with the given role
     if (
       (reqUser.role !== 'admin' && role === 'COE') ||
       (reqUser.role !== 'COE' && role === 'HOD') ||
       (reqUser.role !== 'HOD' && (role === 'Teacher' || role === 'Moderator'))
     ) {
-      return new Response(JSON.stringify({ success: false, message: 'You do not have permission to create this user role' }), { status: 403 });
+      return NextResponse.json({ success: false, message: 'You do not have permission to create this user role' }, { status: 403 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -50,14 +55,15 @@ export async function POST(request) {
         await HOD.findByIdAndUpdate(reqUser._id, { $push: { moderators: newUser._id } });
         break;
       default:
-        return new Response(JSON.stringify({ success: false, message: 'Invalid user role' }), { status: 400 });
+        return NextResponse.json({ success: false, message: 'Invalid user role' }, { status: 400 });
     }
 
-    return new Response(JSON.stringify({
+    return NextResponse.json({
       success: true,
       data: { id: newUser._id, name: newUser.name, email: newUser.email, role: newUser.role }
-    }), { status: 201 });
+    }, { status: 201 });
+
   } catch (error) {
-    return new Response(JSON.stringify({ success: false, error: error.message }), { status: 400 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
   }
 }

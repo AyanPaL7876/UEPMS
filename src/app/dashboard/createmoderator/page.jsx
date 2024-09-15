@@ -1,15 +1,63 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { getTokenFromCookies, decodeToken } from '@/utils/auth';
-import { useRouter } from 'next/navigation';
-import Signup from '@/components/Signup';
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Signup from "@/components/Signup";
+import { getTokenFromCookies, decodeToken } from "@/utils/auth";
 
-function Page() {
-  const [role, setRole] = useState('');
-  const [dept, setDept] = useState('');
+const CreateModeratorPage = () => {
+  const [role, setRole] = useState("");
+  const [dept, setDept] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const token = getTokenFromCookies();
+    if (token) {
+      const decodedToken = decodeToken(token);
+      if (decodedToken && decodedToken.role && decodedToken.dept) {
+        setRole(decodedToken.role);
+        setDept(decodedToken.dept);
+      } else {
+        console.error("Role not found in the token");
+      }
+    } else {
+      console.error("Token not found in cookies");
+    }
+  }, []);
+
+  const handleCreateModerator = async (formData) => {
+    try {
+      const res = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          dept: formData.dept,
+          email: formData.email,
+          password: formData.password,
+          role: "Moderator",
+        }),
+      });
+
+      if (res.ok) {
+        router.push("/dashboard");
+      } else {
+        const errorData = await res.json();
+        setError(errorData.error || "Error during teacher creation");
+      }
+    } catch (error) {
+      setError("An unexpected error occurred.");
+      console.error("An unexpected error occurred:", error);
+    }
+  };
+
+  if (role !== "HOD") {
+    return <h1 className="text-white font-bold">Only HODs can create teachers.</h1>;
+  }
 
   const inputFields = [
     { name: "userType", type: "select", label: "User Type", options: ["External", "Internal"] },
@@ -20,65 +68,14 @@ function Page() {
     { name: "confirmPassword", type: "password", label: "Confirm Password" },
   ];
 
-  const handleSignup = async ({ name, dept, email, password }) => {
-    try {
-      const res = await fetch(`/api/moderator/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${getTokenFromCookies()}`
-        },
-        body: JSON.stringify({ name, dept, email, password }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        console.log(data);
-        console.log("Moderator created successfully");
-        router.push("/dashboard"); 
-      } else {
-        const errorData = await res.json();
-        setError(errorData.error);
-        console.error("Error during moderator creation:", errorData.error);
-      }
-    } catch (error) {
-      setError("An unexpected error occurred.");
-      console.error("An unexpected error occurred:", error);
-    }
-  };
-
-  useEffect(() => {
-    const token = getTokenFromCookies();
-
-    if (token) {
-      const decodedToken = decodeToken(token);
-      console.log("Decoded Token:", decodedToken);
-
-      if (decodedToken && decodedToken.role) {
-        setRole(decodedToken.role);
-        setDept(decodedToken.dept);
-        console.log(`dept : ${decodedToken.dept}`);
-      } else {
-        console.error("Role not found in the token");
-      }
-    } else {
-      console.error("Token not found in cookies");
-    }
-  }, []);
-
   return (
-    <div className=' text-white font-bold'>
-      <div className='flex flex-col justify-start items-center text-white'>
-        <div>
-          {role === 'HOD' ? (
-            <Signup role={role} onSubmit={handleSignup} dept={dept} error={error} inputFields={inputFields} userType="Moderator"/>
-          ) : (
-            <h1>Only HODs can create Moderators.</h1>
-          )}
-        </div>
-      </div>
-    </div>
+      <Signup
+        userType="Moderator"
+        inputFields={inputFields}
+        onSubmit={handleCreateModerator}
+        error={error}
+      />
   );
-}
+};
 
-export default Page;
+export default CreateModeratorPage;

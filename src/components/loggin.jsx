@@ -18,21 +18,6 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 space-y-4 w-full">
       <div className="flex flex-col w-full text-white">
-        <label>Select UserType: </label>
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="border border-gray-100 py-2 px-3 rounded-xl text-black outline-none"
-        >
-          <option value="Admin">Admin</option>
-          <option value="COE">COE</option>
-          <option value="HOD">HOD</option>
-          <option value="Teacher">Teacher</option>
-          <option value="Moderator">Moderator</option>
-        </select>
-      </div>
-
-      <div className="flex flex-col w-full text-white">
         <label>Email: </label>
         <input
           type="email"
