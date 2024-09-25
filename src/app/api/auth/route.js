@@ -1,12 +1,8 @@
-import { connect } from '@/db/dbConnnect'; // Ensure this path is correct
-import Admin from '@/modules/AdminSchema';
-import COE from '@/modules/COESchema';
-import HOD from '@/modules/HODSchema';
-import Teacher from '@/modules/TeacherSchema';
-import Moderator from '@/modules/ModeratorSchema';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import { NextRequest, NextResponse } from 'next/server';
+import { connect } from "@/db/dbConnnect";
+import { User } from "@/modules/UserSchema";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request = NextRequest) {
   const jsonBody = await request.json();
@@ -15,63 +11,73 @@ export async function POST(request = NextRequest) {
   await connect();
 
   try {
-    let user = await Admin.findOne({ email }) ||
-               await COE.findOne({ email }) ||
-               await HOD.findOne({ email }) ||
-               await Teacher.findOne({ email }) ||
-               await Moderator.findOne({ email });
+    let user = await User.findOne({ email });
 
     if (!user) {
-      return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message: "Invalid credentials" },
+        { status: 400 }
+      );
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message: "Invalid password" },
+        { status: 400 }
+      );
     }
 
-    // Construct the payload
-let payload = {
-  id: user._id,
-  name: user.name,
-  email: user.email,
-  role: user.role,
-};
+    // Construct the data
+    let data = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
 
-// Conditionally add `dept` if the role is neither 'admin' nor 'COE'
-if (user.role !== 'admin' && user.role !== 'COE') {
-  payload.dept = user.dept;
-}
+    // Conditionally add `dept` if the role is neither 'admin' nor 'COE'
+    if (user.role !== "admin" && user.role !== "COE") {
+      data.dept = user.dept;
+    }
+    if (user.role !== "admin") {
+      data.universityName = user.universityName;
+    }
 
-// Sign the token with the constructed payload
-const token = jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn: '1d' });
+    // Sign the token with the constructed data
+    const token = jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: "1d" });
 
     console.log(token);
 
     user.lastLogin = new Date();
     await user.save();
 
-    const response = NextResponse.json({
-      success: true,
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+    const response = NextResponse.json(
+      {
+        success: true,
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
       },
-    }, { status: 200 });
+      { status: 200 }
+    );
 
     response.cookies.set("token", token, {
-        path: "/",
-        httpOnly: false,
+      path: "/",
+      httpOnly: false,
     });
 
     return response;
-    
   } catch (error) {
-    console.error('Server Error:', error); // Added logging for the server error
-    return NextResponse.json({ success: false, message: 'Server error', error: error.message }, { status: 500 });
+    console.error("Server Error:", error); // Added logging for the server error
+    return NextResponse.json(
+      { success: false, message: "Server error", error: error.message },
+      { status: 500 }
+    );
   }
 }
