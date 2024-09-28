@@ -1,15 +1,17 @@
+import { required } from "joi";
+
 const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema(
   {
     knowledgeLevel: {
       type: String,
-      enum: ["L-1", "L-2", "L-3", "L-4", "L-5", "L-6"],
+      enum: ["L1", "L2", "L3", "L4", "L5", "L6"],
       required: true,
     },
     courseOutcome: {
       type: String,
-      enum: ["CO-1", "CO-2", "CO-3", "CO-4", "CO-5"],
+      enum: ["CO1", "CO2", "CO3", "CO4", "CO5"],
       required: true,
     },
     imageUrl: {
@@ -26,6 +28,7 @@ const questionSchema = new mongoose.Schema(
     ],
     marks: {
       type: Number,
+      required: String,
       required: true,
     },
     underGroup: {
@@ -38,9 +41,14 @@ const questionSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    mainpaper: {
+    mainQuestionGroup: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "QuestionGroup",
+      required: true,
+    }],
+    mainpaper: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "QuestionPaper",
       required: true,
     },
   },

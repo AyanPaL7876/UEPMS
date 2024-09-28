@@ -1,10 +1,9 @@
 import { connect } from "@/db/dbConnnect";
-import QuestionPaper from "@/modules/QuestionPaperSchema";
-import { User } from "@/modules/UserSchema";
-import { authMiddleware } from "@/utils/authMiddleware";
+import { User, QuestionPaper } from '@/modules';
+import { authMiddleware } from "@/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request) {
+export async function POST(request=NextRequest) {
   await connect();
   const auth = await authMiddleware(['HOD'], request);
   if (!auth.success) return NextResponse.json({ message: auth.message }, { status: auth.status });
@@ -24,6 +23,8 @@ export async function POST(request) {
     if(questionPaper.allocatedModerators){
       return NextResponse.json({ message: 'Already one Moderater is selected in this question paper' }, { status: 403 });
     }
+
+    console.log(moderatorId)
     const moderator = await User.findOne({ _id: moderatorId, role: 'Teacher' });
     if (!moderator) {
       return NextResponse.json({ message: 'Invalid moderator ID' }, { status: 400 });
@@ -32,9 +33,10 @@ export async function POST(request) {
     questionPaper.allocatedModerators = moderatorId;
     await questionPaper.save();
 
-    return NextResponse.json({ message: 'Moderator assigned successfully', questionPaper });
+    return NextResponse.json({ message: 'Moderator assigned successfully', 
+      questionPaper 
+    });
   } catch (error) {
     return NextResponse.json({ message: 'Error assigning moderator', error: error.message }, { status: 500 });
   }
 }
-

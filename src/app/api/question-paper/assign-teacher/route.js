@@ -1,7 +1,6 @@
 import { connect } from "@/db/dbConnnect";
-import QuestionPaper from "@/modules/QuestionPaperSchema";
-import { User } from "@/modules/UserSchema";
-import { authMiddleware } from "@/utils/authMiddleware";
+import { User, QuestionPaper } from '@/modules';
+import { authMiddleware } from "@/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request = NextRequest) {

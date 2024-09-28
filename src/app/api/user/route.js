@@ -1,7 +1,7 @@
 import { connect } from "@/db/dbConnnect";
 import bcrypt from "bcryptjs";
-import { User, UserValidationSchema } from "@/modules/UserSchema";
-import { authMiddleware } from "@/utils/authMiddleware";
+import { User, UserValidationSchema } from "@/modules";
+import { authMiddleware } from "@/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
 await connect();

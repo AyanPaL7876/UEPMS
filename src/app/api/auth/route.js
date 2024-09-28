@@ -1,5 +1,5 @@
 import { connect } from "@/db/dbConnnect";
-import { User } from "@/modules/UserSchema";
+import { User } from "@/modules";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";

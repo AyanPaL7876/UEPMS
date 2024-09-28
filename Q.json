@@ -1,0 +1,197 @@
+{
+    "uniName": "Adamas University",
+    "paperCode": "CS101",
+    "year": "2024-25",
+    "groupA":[
+      {
+        "knowledgeLevel": "L1",
+        "courseOutcome": "CO1",
+        "text": "What are the benefits of cloud computing?",
+        "marks": "2",
+        "underGroup": "A",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L1",
+        "courseOutcome": "CO2",
+        "text": "Which are the different layers that defines cloud architechure?",
+        "marks": "2",
+        "underGroup": "A",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123","64f7c4f7a2b8e7d2f4c5d125"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L2",
+        "courseOutcome": "CO3",
+        "text": "Scalability vs elasticity?",
+        "marks": "2",
+        "underGroup": "A",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L4",
+        "courseOutcome": "CO4",
+        "marks": "2",
+        "text": "is cloud better then dedicated server?",
+        "underGroup": "A",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123","64f7c4f7a2b8e7d2f4c5d125"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L4",
+        "courseOutcome": "CO4",
+        "text": "How 'Infrastructure as a services' works?",
+        "marks": "2",
+        "underGroup": "A",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      }
+    ],
+
+    "groupB":[
+      {
+        "knowledgeLevel": "L2",
+        "courseOutcome": "CO1",
+        "text": "How cloud works efficiently over traditional datacentres ?",
+        "marks": "4",
+        "underGroup": "B",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L1",
+        "courseOutcome": "CO2",
+        "text": "List down features of Amazon EC2.",
+        "marks": "4",
+        "underGroup": "B",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123","64f7c4f7a2b8e7d2f4c5d125"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L3",
+        "courseOutcome": "CO1",
+        "text": "How load balancing works in cloud computing?",
+        "marks": "4",
+        "underGroup": "B",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L2",
+        "courseOutcome": "CO2",
+        "marks": "4",
+        "text": "What is Software as a Service (SaaS), and how does it differ from other cloud service models like laas and PaaS?",
+        "underGroup": "B",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123","64f7c4f7a2b8e7d2f4c5d125"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L6",
+        "courseOutcome": "CO4",
+        "text": "List any four disadvantages of cloud computing and show how to improve them.",
+        "marks": "4",
+        "underGroup": "B",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L6",
+        "courseOutcome": "CO4",
+        "text": "How does data security and privacy work in SaaS applications, and what measures do SaaS providers take to protect customer data?",
+        "marks": "4",
+        "underGroup": "B",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      }
+    ],
+
+    "groupC":[
+      {
+        "knowledgeLevel": "L2",
+        "courseOutcome": "CO3",
+        "text": "How does data security and privacy work in SaaS applications, and what measures do SaaS providers take to protect customer data?",
+        "marks": "10",
+        "underGroup": "C",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L2",
+        "courseOutcome": "CO3",
+        "text": "What are the key functionalities of Platform as a Service, and how does it differ from Infrastructure as a Service?",
+        "marks": "10",
+        "underGroup": "C",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123","64f7c4f7a2b8e7d2f4c5d125"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L4",
+        "courseOutcome": "CO5",
+        "text": "What are hypervisors, and how do they facilitate server virtualization in cloud infrastructure? What security considerations should organizations take into account when deploying and managing hypervisors.",
+        "marks": "10",
+        "underGroup": "C",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      },
+      {
+        "knowledgeLevel": "L4",
+        "courseOutcome": "CO5",
+        "marks": "10",
+        "text": "What are hypervisors, and how do they facilitate server virtualization in cloud infrastructure? What security considerations should organizations take into account when deploying and managing hypervisors.",
+        "underGroup": "C",
+        "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+        "mainQuestionGroup" : ["64f7c4f7a2b8e7d2f4c5d123","64f7c4f7a2b8e7d2f4c5d125"],
+        "mainpaper": "64f7c615a2b8e7d2f4c5d101",
+        "createdAt": "2024-09-28T10:00:00.000Z",
+        "updatedAt": "2024-09-28T12:00:00.000Z"
+      }
+    ],
+    "mainQuestionPaper": "66f1c359cfb8cf72094ce123",
+    "createdBy": "64f7c4f7a2b8e7d2f4c5d123",
+    "createdAt": "2024-09-28T10:00:00.000Z",
+    "updatedAt": "2024-09-28T12:00:00.000Z"
+}

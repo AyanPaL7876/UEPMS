@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const QuestionGroupSchema = new mongoose.Schema({
+    uniName: {
+        type: String,
+        required: true,
+    },
     paperCode: {
         type: String,
         required: true,
@@ -34,6 +38,9 @@ const QuestionGroupSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+QuestionGroupSchema.index({ year: 1, uniName: 1, paperCode: 1, createdBy: 1 }, { unique: true });
+
 
 const QuestionGroup = mongoose.models.QuestionGroup || mongoose.model('QuestionGroup', QuestionGroupSchema);
 

@@ -53,6 +53,10 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  createdQuestionPapers: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Questiongroup",
+  }],
   createdAt: {type: Date, default: Date.now},
   forgotPasswordToken: String,
   forgotPasswordTokenExpiry: Date,
