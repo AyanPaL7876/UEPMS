@@ -24,8 +24,19 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800">
         <NavBar/>
+        </div>
+
         {children}
+        <footer className="py-5 text-gray-400 bg-gradient-to-r from-gray-900 to-gray-800">
+        <div className="container mx-auto text-center">
+          <p>
+            &copy; {new Date().getFullYear()} University Exam Question Paper
+            Management System. All rights reserved.
+          </p>
+        </div>
+      </footer>
       </body>
     </html>
   );
