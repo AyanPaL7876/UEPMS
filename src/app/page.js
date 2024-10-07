@@ -14,16 +14,16 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import { throttle } from "lodash"; // Import throttle from lodash
 
 const Home = () => {
   const [scrollY, setScrollY] = useState(0);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Add state for mobile menu
-  console.log(scrollY);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       setScrollY(window.scrollY);
-    };
+    }, 200); // Throttle the scroll event to fire every 200ms
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -55,7 +55,7 @@ const Home = () => {
               <NavLink href="#pricing">Pricing</NavLink>
               <NavLink href="#contact">Contact</NavLink>
             </div>
-            <div className="hidden md:flex space-x-4">
+            <div className="hidden md:flex space-x-3">
               <ActionButton
                 href="/login"
                 bgColor="bg-blue-600"
@@ -63,13 +63,6 @@ const Home = () => {
               >
                 Log In
               </ActionButton>
-              {/* <ActionButton
-                href="/signup"
-                bgColor="bg-green-600"
-                hoverColor="hover:bg-green-700"
-              >
-                Sign Up
-              </ActionButton> */}
             </div>
 
             {/* Mobile Menu Button */}
@@ -133,17 +126,17 @@ const Home = () => {
             creation process with our cutting-edge Question Paper Management
             System.
           </p>
-          <Link href="/demo">
+          <Link href="/demo" className="px-5 py-2">
             <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full text-xl font-semibold hover:scale-110 transition transform hover:shadow-xl animate-pulse inline-flex items-center">
               Experience the Demo
               <FaArrowRight className="ml-3" />
             </span>
           </Link>
-          <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-indigo-900 to-transparent"></div>
+          {/* <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-indigo-900 to-transparent"></div> */}
         </section>
 
         {/* Features Section */}
-        <section className="my-24">
+        <section id="features" className="py-24">
           <h2 className="text-4xl font-extrabold mb-12 text-center py-1">
             Key Features
           </h2>
@@ -167,7 +160,7 @@ const Home = () => {
         </section>
 
         {/* Benefits Section */}
-        <section className="my-20 relative overflow-hidden pb-5">
+        <section id="benefits" className="my-20 relative overflow-hidden pb-5">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-800 to-purple-800 transform -skew-y-6 z-0 animate-pulse"></div>
           <div className="relative z-10 py-16">
             <h2 className="text-4xl font-extrabold mb-12 text-center py-1">
@@ -216,6 +209,7 @@ const Home = () => {
     </div>
   );
 };
+
 
 // NavLink Component
 const NavLink = ({ href, children, mobile }) => (

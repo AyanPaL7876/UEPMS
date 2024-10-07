@@ -1,25 +1,10 @@
-import jwt from 'jsonwebtoken';
-import { User } from '@/modules/UserSchema';
+import { findUser } from './findUser';
 
 export const authMiddleware = async (allowedRoles, req) => {
-  const token = req.headers.get('Authorization')?.replace('Bearer ',''); // Bearer token
-
-  if (!token) {
-    return { success: false, message: 'No token provided', status: 401 };
-  }
-
   try {
-    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-    let user;
-
-    if(!decoded.id) {
-      return { success: false, message: 'Invalid token', status: 401};
-    }else{
-      user = await User.findById(decoded.id);
-    }
-
-    if (!user) {
-      return { success: false, message: 'User not found', status: 401 };
+    const { success, user, message, status } = await findUser(req); 
+    if(!success) {
+      return { success: false, message, status };
     }
 
     if (!allowedRoles.includes(user.role)) {

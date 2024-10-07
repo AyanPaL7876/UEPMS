@@ -1,4 +1,4 @@
-import { connect } from "@/db/dbConnnect";
+import { connect } from "@/db";
 import { User } from "@/modules";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -12,6 +12,7 @@ export async function POST(request = NextRequest) {
 
   try {
     let user = await User.findOne({ email });
+    console.log(user);
 
     if (!user) {
       return NextResponse.json(
@@ -21,6 +22,7 @@ export async function POST(request = NextRequest) {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch);
 
     if (!isMatch) {
       return NextResponse.json(
@@ -41,6 +43,7 @@ export async function POST(request = NextRequest) {
     if (user.role !== "admin" && user.role !== "COE") {
       data.dept = user.dept;
     }
+    // Conditionally add `universityName` if the role is not 'admin'
     if (user.role !== "admin") {
       data.universityName = user.universityName;
     }

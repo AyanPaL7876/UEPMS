@@ -1,4 +1,4 @@
-import { connect } from "@/db/dbConnnect";
+import { connect } from "@/db";
 import { User, QuestionPaper } from '@/modules';
 import { authMiddleware } from "@/middleware";
 import { NextRequest, NextResponse } from "next/server";
