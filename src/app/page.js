@@ -30,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-purple-900 to-indigo-900 text-gray-100">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-sky-900 to-indigo-900 text-gray-100">
       {/* Header */}
       <header
         className={`fixed bg_blur w-full z-50 transition-all duration-300 ${

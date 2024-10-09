@@ -19,11 +19,11 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
-      <div className="max-w-md w-full space-y-8 p-10 bg-gradient-to-b from-purple-600/20 to-transparent rounded-xl shadow-lg border-[0.25px]">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-sky-950 to-blue-800">
+      <div className="max-w-md w-full space-y-8 p-10 bg-gradient-to-b from-blue-600/20 to-transparent rounded-xl shadow-lg border-[0.25px]">
         <div className="space-y-1 flex flex-col items-center">
           <div className="bg-primary/10 p-3 rounded-full">
-            <UserCircle2 className="h-10 w-10 text-purple-300" />
+            <UserCircle2 className="h-10 w-10 text-blue-300" />
           </div>
           <h2 className="text-2xl font-bold text-white">Welcome Back</h2>
           <p className="text-gray-400">Enter your credentials to access your account</p>
@@ -40,7 +40,7 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white bg-purple-800 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white bg-blue-800 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -56,7 +56,7 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 required
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white bg-purple-800 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm pr-10"
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white bg-blue-800 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm pr-10"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -87,7 +87,7 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -107,14 +107,14 @@ const LoginForm = ({ onSubmit, error, isLoading }) => {
               id="remember-me"
               name="remember-me"
               type="checkbox"
-              className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-600 rounded bg-gray-700"
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 rounded bg-gray-700"
             />
             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
               Remember me
             </label>
           </div>
           <div className="text-sm">
-            <a href="#" className="font-medium text-purple-400 hover:text-purple-300">
+            <a href="#" className="font-medium text-blue-400 hover:text-blue-300">
               Forgot your password?
             </a>
           </div>
