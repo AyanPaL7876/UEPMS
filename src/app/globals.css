@@ -21,7 +21,9 @@ html {
 }
 
 body {
-  @apply font-jost bg-gradient-to-br from-gray-900 via-sky-950 to-blue-800 h-screen;
+  /* @apply bg-gradient-to-br from-gray-900 via-purple-900 to-gray-800; */
+  /* @apply bg-gradient-to-b from-gray-900 to-purple-900; */
+  @apply bg-gradient-to-br from-gray-900 via-sky-950 to-blue-800;
   scroll-behavior: smooth;
 }
 

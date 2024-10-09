@@ -1,16 +1,18 @@
 "use client";
 
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import LoginForm from "@/components/loggin";
 import Link from "next/link";
 import {
   FaGraduationCap,
 } from "react-icons/fa";
+import { set } from 'mongoose';
 
 const page = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [previousPage, setPreviousPage] = useState('');
   const router = useRouter();
 
   const handleLoginIn = async ({ email, password }) => {
@@ -28,7 +30,7 @@ const page = () => {
       console.log("response : "+res);
 
       if (res.ok) {
-        router.push("/");
+        router.push("/home");
       } else {
         const errorData = await res.json();
         console.log(errorData.error)
@@ -39,8 +41,16 @@ const page = () => {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
+      console.log(document)
+      console.log("1 : "+previousPage);
     }
   };
+  
+  useEffect(() => {
+    // Store the referrer (previous page URL)
+    setPreviousPage(document.referrer);
+    console.log(previousPage);
+  }, [setPreviousPage]);
   return (
     <div>
       {/* Header */}
