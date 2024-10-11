@@ -41,7 +41,7 @@ export async function POST(request = NextRequest) {
 
     // Conditionally add `dept` if the role is neither 'admin' nor 'COE'
     if (user.role !== "admin" && user.role !== "COE") {
-      data.dept = user.dept;
+      data.dept = user.department;
     }
     // Conditionally add `universityName` if the role is not 'admin'
     if (user.role !== "admin") {

@@ -1,15 +1,11 @@
 "use client";
-
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import LoginForm from "@/components/loggin";
 import Link from "next/link";
-import {
-  FaGraduationCap,
-} from "react-icons/fa";
-import { set } from 'mongoose';
+import { FaGraduationCap } from "react-icons/fa";
 
-const page = () => {
+const LoginPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [previousPage, setPreviousPage] = useState('');
@@ -18,7 +14,7 @@ const page = () => {
   const handleLoginIn = async ({ email, password }) => {
     setIsLoading(true);
     setError("");
-    console.log(email+" and "+password);
+    console.log(email + " and " + password);
     try {
       const res = await fetch(`/api/auth/login`, {
         method: "POST",
@@ -27,13 +23,13 @@ const page = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-      console.log("response : "+res);
+      console.log("response : " + res);
 
       if (res.ok) {
         router.push("/home");
       } else {
         const errorData = await res.json();
-        console.log(errorData.error)
+        console.log(errorData.error);
         setError(errorData.error || "Login failed. Please try again.");
       }
     } catch (error) {
@@ -41,22 +37,21 @@ const page = () => {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
-      console.log(document)
-      console.log("1 : "+previousPage);
+      console.log(document);
+      console.log("1 : " + previousPage);
     }
   };
-  
-  useEffect(() => {
-    // Store the referrer (previous page URL)
-    setPreviousPage(document.referrer);
-    console.log(previousPage);
-  }, [setPreviousPage]);
+
+  // useEffect(() => {
+  //   // Store the referrer (previous page URL)
+  //   setPreviousPage(document.referrer);
+  //   console.log(previousPage);
+  // }, [document.referrer]);
+
   return (
     <div>
       {/* Header */}
-      <heade
-        className={`fixed bg_blur w-full z-50 transition-all duration-300 `}
-      >
+      <header className={`fixed bg_blur w-full z-50 transition-all duration-300`}>
         <nav className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <Link href="/">
@@ -67,10 +62,10 @@ const page = () => {
             </Link>
           </div>
         </nav>
-      </heade>
-      <LoginForm error={error} isLoading={isLoading} onSubmit={handleLoginIn}/>
+      </header>
+      <LoginForm error={error} isLoading={isLoading} onSubmit={handleLoginIn} />
     </div>
   );
-}
+};
 
-export default page;
+export default LoginPage;

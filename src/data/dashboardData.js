@@ -14,25 +14,26 @@ import selectTeacher from "@/assets/selectTeacher.svg";
 import selectModerator from "@/assets/selectModerator.svg";
 
 const AdminButtons = [
-  { Icon: cteareCOE, text: "Create COE", path: "/dashboard/createcoe" },
-  { Icon: cteareHOD, text: "Create HOD", path: "/dashboard/createhod" },
+  { Icon: cteareCOE, text: "Create COE", path: "/create/coe" },
+  { Icon: cteareHOD, text: "Create HOD", path: "/create/hod" },
   { Icon: viewCOE, text: "View All COEs", path: "/list/coelist" },
   { Icon: viewHOD, text: "View All HODs", path: "/list/hodlist" },
   { Icon: ctearePaper, text: "Create Paper", path: "#" },
   { Icon: viewPaper, text: "View Paper", path: "#" },
 ];
+
 const COEButtons = [
-  { Icon: cteareHOD, text: "Create HOD", path: "/dashboard/createhod" },
+  { Icon: cteareHOD, text: "Create HOD", path: "/create/hod" },
   { Icon: viewHOD, text: "View All HODs", path: "/list/hodlist" },
   { Icon: ctearePaper, text: "Create Paper", path: "#" },
   { Icon: viewPaper, text: "View Paper", path: "#" },
 ];
 
 const HODButtons = [
-  { Icon: CteareTeacher, text: "Create Teacher", path: "/dashboard/createteacher" },
-  { Icon: CteareModerator, text: "Create Moderator", path: "/dashboard/createmoderator" },
+  { Icon: CteareTeacher, text: "Create Teacher", path: "/create/teacher" },
+  // { Icon: CteareModerator, text: "Create Moderator", path: "/create/moderator" },
   { Icon: viewTeacher, text: "All Teachers", path: "/list/teacherlist" },
-  { Icon: viewModerator, text: "All Moderators", path: "/list/moderatorlist" },
+  // { Icon: viewModerator, text: "All Moderators", path: "/list/moderatorlist" },
   { Icon: selectTeacher, text: "Select Teacher", path: "/list/teacherlist" },
   { Icon: selectModerator, text: "Select Moderators", path: "/list/moderatorlist" },
 ];

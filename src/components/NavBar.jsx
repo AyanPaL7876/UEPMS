@@ -53,7 +53,7 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="container mx-auto px-6 py-4 flex justify-between items-center fixed top-0 right-0">
+    <div className="container mx-auto px-6 py-4 flex justify-between items-center z-50">
       <div className="flex justify-between items-center">
         <Link href="/">
           <span className="text-2xl font-bold text-white flex items-center">

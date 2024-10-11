@@ -1,4 +1,4 @@
-import { connect } from "@/db/dbConnnect";
+import { connect } from "@/db";
 import bcrypt from "bcryptjs";
 import { User, UserValidationSchema } from "@/modules";
 import { authMiddleware } from "@/middleware";

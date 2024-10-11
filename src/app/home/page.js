@@ -5,15 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import Dashboard from '@/components/Dashboard';
 import Loading from '@/components/common/loading';
-import { AdminButtons, COEButtons, HODButtons, TeacherButtons } from '@/data/dashboardData';
 import { getTokenFromCookies, decodeToken } from '@/utils/auth';
-
-const ROLE_BUTTONS = {
-  Admin: AdminButtons,
-  COE: COEButtons,
-  HOD: HODButtons,
-  Teacher: TeacherButtons,
-};
 
 function DashboardPage() {
   const [role, setRole] = useState('');
@@ -38,7 +30,6 @@ function DashboardPage() {
       }
 
       setRole(decodedToken.role);
-      setButtons(ROLE_BUTTONS[decodedToken.role] || null);
       setIsLoading(false);
     };
 
@@ -49,12 +40,12 @@ function DashboardPage() {
     return <Loading />;
   }
 
-  if (!role || !buttons) {
+  if (!role) {
     return (
-      <div className="pt-16 h-screen">
-        <div className="w-full bg-red-300 text-xl text-gray-800 text-center px-4 py-2">
-          <p>Authentication error</p>
-          <p>Please log in again</p>
+      <div className="pt-1 min-h-screen px-4">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative h-auto min-w-screen" role="alert">
+          <strong className="font-bold">Authentication error: </strong>
+          <span className="block sm:inline">Please log in again.</span>
         </div>
       </div>
     );
@@ -62,7 +53,7 @@ function DashboardPage() {
 
   return (
     <div className="text-white font-bold">
-      <Dashboard buttons={buttons} role={role} />
+      <Dashboard role={role} />
     </div>
   );
 }

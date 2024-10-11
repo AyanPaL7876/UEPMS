@@ -1,0 +1,159 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Signup from "@/components/Signup";
+import { getTokenFromCookies, decodeToken } from "@/utils/auth";
+import signupImg from "@/assets/img/signup.png";
+import { teacherInputFields } from "@/data/signupFields";
+import Loading from "@/components/common/loading";
+
+const CreatePage = ({params}) => {
+  const {createdRole} = params;
+  const [role, setRole] = useState("");
+  const [dept, setDept] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [modifiedFields, setModifiedFields] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const token = getTokenFromCookies();
+        if (!token) {
+          setError("You must be logged in to access this page");
+          router.push("/login");
+          return;
+        }
+
+        const decodedToken = decodeToken(token);
+        if (!decodedToken || !decodedToken.role) {
+          setError("Invalid token");
+          router.push("/login");
+          return;
+        }
+
+        setRole(decodedToken.role);
+        setDept(decodedToken.dept);
+
+        // Modify the input fields to include the department
+        const updatedFields = teacherInputFields.map(field => {
+          if (field.name === "dept") {
+            return {
+              ...field,
+              value: decodedToken.dept,
+              disabled: true
+            };
+          }
+          return field;
+        });
+
+        setModifiedFields(updatedFields);
+      } catch (err) {
+        console.error("Error checking token:", err);
+        setError("An error occurred while verifying your credentials");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkToken();
+  }, [router]);
+
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+  
+
+  const handleCreateTeacher = async (formData) => {
+    console.log(formData);
+    console.log("created rl0e :",createdRole);
+    try {
+      setIsLoading(true);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          dept: dept,
+          email: formData.email,
+          password: formData.password,
+          role: capitalizeFirstLetter(createdRole),
+          teacherType: formData.teacherType,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        router.push("/home");
+      } else {
+        setError(data.error || "Error during teacher creation");
+      }
+    } catch (error) {
+      console.error("An unexpected error occurred:", error);
+      setError("An unexpected error occurred while creating the teacher account.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (role !== "HOD") {
+    return (
+      <div className="flex min-h-[96vh] items-center justify-center">
+        <div className="text-center p-8 bg-white rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
+          <p className="text-gray-600">Only HODs can create teachers. Your role is {role}.</p>
+          <button
+            onClick={() => router.push("/home")}
+            className="mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Return to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex min-h-screen flex-col justify-center items-center p-4">
+      <div className="w-1/2 pb-3">
+        <h2 className="text-3xl text-white font-bold mb-4 text-center">Create {capitalizeFirstLetter(createdRole)} Account</h2>
+        <p className="text-gray-300 text-center">
+          Add a new {createdRole} to the {dept} department.
+        </p>
+      </div>
+      <div className="flex overflow-hidden max-w-4xl w-full gap-2">
+        <div  className="w-1/2 items-center justify-center hidden md:flex">
+          <Image
+            src={signupImg}
+            alt="Teacher signup illustration"
+            className="max-w-full h-auto"
+            priority
+          />
+        </div>
+          <Signup
+            userType={createdRole}
+            inputFields={modifiedFields}
+            onSubmit={handleCreateTeacher}
+            error={error}
+          />
+      </div>
+    </div>
+  );
+};
+
+export default CreatePage;

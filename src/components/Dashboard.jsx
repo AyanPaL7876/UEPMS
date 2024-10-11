@@ -1,5 +1,8 @@
+"use client"
+
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
+import { AdminButtons, COEButtons, HODButtons, TeacherButtons, ModeratorButtons } from '@/data/dashboardData';
 
 function Button({ Icon, text, onClick }) {
   return (
@@ -23,36 +26,54 @@ function Button({ Icon, text, onClick }) {
   );
 }
 
-
-
-export default function Dashboard({ buttons , role }) {
+export default function Dashboard({ role }) {
   const router = useRouter();
+
+  const getButtonsForRole = (role) => {
+    switch(role.toLowerCase()) {
+      case 'admin':
+        return AdminButtons;
+      case 'coe':
+        return COEButtons;
+      case 'hod':
+        return HODButtons;
+      case 'teacher':
+        return TeacherButtons;
+      case 'moderator':
+        return ModeratorButtons;
+      default:
+        console.error(`Unknown role: ${role}`);
+        return [];
+    }
+  };
+
+  const buttons = getButtonsForRole(role);
 
   return (
     <div className="flex flex-col w-auto min-h-screen">
-      <header className="flex items-end justify-center text-white pt-[16vh] animate-fadeInDown">
+      <header className="flex items-end justify-center text-white pt-[10vh] animate-fadeInDown">
         <div className="mb-2">
           <h1 className="text-5xl font-extrabold p-3 text-center">
             Welcome to the {role} Section
           </h1>
           <p className="text-lg font-light text-center mt-3">
-            Manage your deperment with elese.
+            Manage your department with ease.
           </p>
         </div>
       </header>
 
       <main className="container mx-auto py-10 w-2/3">
-      <div className="row items-center justify-center">
-        {buttons.map((button, index) => (
-          <Button
-            key={index}
-            Icon={button.Icon}
-            text={button.text}
-            onClick={() => router.push(button.path)}
-          />
-        ))}
-      </div>
-    </main>
+        <div className="row items-center justify-center">
+          {buttons.map((button, index) => (
+            <Button
+              key={index}
+              Icon={button.Icon}
+              text={button.text}
+              onClick={() => router.push(button.path)}
+            />
+          ))}
+        </div>
+      </main>
     </div>
   );
 }

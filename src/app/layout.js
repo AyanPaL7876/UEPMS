@@ -13,17 +13,18 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "questionMaster",
-  description: "questionMaster",
+  title: "QuestionMaster",
+  description: "QuestionMaster - Your Comprehensive Exam Management Solution",
+  icons: {
+    icon: './favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-          {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {children}
       </body>
     </html>
   );

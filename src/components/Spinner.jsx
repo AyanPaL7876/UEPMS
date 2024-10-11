@@ -1,3 +1,5 @@
+"use client";
+
 import { VscLoading } from "react-icons/vsc";
 export function Spinner() {
     return (
