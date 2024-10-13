@@ -5,13 +5,13 @@ import {
     Building
 } from 'lucide-react';
 
-export const teacherInputFields = [
+const hodInputFields = [
     { 
         name: "name", 
         label: "Name", 
         type: "text", 
         required: true, 
-        placeholder: "Enter your full name",
+        placeholder: "Enter hod's full name",
         icon: <UserRound className="h-5 w-5 text-gray-400" />,
         validation: (value) => {
             if (!value) return "Name is required";
@@ -24,7 +24,7 @@ export const teacherInputFields = [
         label: "Email", 
         type: "email", 
         required: true, 
-        placeholder: "Enter your email address",
+        placeholder: "Enter hod's email address",
         icon: <Mail className="h-5 w-5 text-gray-400" />,
         validation: (value) => {
             if (!value) return "Email is required";
@@ -32,24 +32,13 @@ export const teacherInputFields = [
             return "";
         }
     },
-    // Commented out for now, can be uncommented when needed
     { 
-        name: "teacherType", 
-        label: "Teacher Type", 
-        type: "select",
-        options: ["Internal", "External"],
-        icon: <Building className="h-5 w-5 text-gray-400" />,
-        validation: (value) => {
-            if (!value) return "Teacher type is required";
-            return "";
-        }
-    },
-    { 
-        name: "dept", 
+        name: "department", 
         label: "Department", 
-        type: "text", 
-        disabled: true, 
-        placeholder: "Your department",
+        type: "text",
+        placeholder: "hod department",
+        required: true,
+        disabled: false,
         icon: <Building className="h-5 w-5 text-gray-400" />
     },
     { 
@@ -81,7 +70,4 @@ export const teacherInputFields = [
     },
 ];
 
-// You can add more field sets for other user types
-export const studentInputFields = [
-    // Define student-specific fields here
-];
+export default hodInputFields;

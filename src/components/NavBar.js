@@ -6,7 +6,7 @@ import {
   FaGraduationCap,
 } from "react-icons/fa";
 import { getTokenFromCookies, decodeToken } from "@/utils/auth";
-import { LogOut } from "lucide-react";
+import { CircleUserRound ,LogOut } from "lucide-react";
 import Link from "next/link";
 
 function Navbar() {
@@ -63,7 +63,10 @@ function Navbar() {
         </Link>
       </div>
       <div className="flex items-center">
-          <span className="text-gray-300 mr-4">{name}</span>
+        <div className="mr-4">
+          <span className="text-gray-300 hidden md:flex">{name}</span>
+          <CircleUserRound  className="w-5 h-5 md:hidden text-gray-300" />
+        </div>
           <button 
           className="text-gray-400 hover:text-white"
           onClick={handleLogout}
