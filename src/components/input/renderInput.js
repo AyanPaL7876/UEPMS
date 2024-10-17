@@ -1,9 +1,7 @@
 "use client"
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { UserPlus, Eye, EyeOff, AlertCircle } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import React from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 const RenderField = ({ 
     field, 

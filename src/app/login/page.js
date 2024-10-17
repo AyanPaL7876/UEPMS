@@ -29,8 +29,8 @@ const LoginPage = () => {
         router.push("/home");
       } else {
         const errorData = await res.json();
-        console.log(errorData.error);
-        setError(errorData.error || "Login failed. Please try again.");
+        console.log(errorData);
+        setError(errorData.message || "Login failed. Please try again.");
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);

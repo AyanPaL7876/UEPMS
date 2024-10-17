@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { UserPlus, Eye, EyeOff, AlertCircle } from "lucide-react";
+import { UserPlus, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import RenderField from "@/components/input/renderInput";
+import { validatePassword } from "@/lib";
 
 function Signup({ userType = "Account", onSubmit, error, inputFields = [] }) {
   const [formData, setFormData] = useState(
@@ -23,7 +24,8 @@ function Signup({ userType = "Account", onSubmit, error, inputFields = [] }) {
       case "email":
         return !/\S+@\S+\.\S+/.test(value) ? "Invalid email address" : "";
       case "password":
-        return value.length < 8 ? "Password must be at least 8 characters" : "";
+        const valid = validatePassword(value);
+        return valid.success ? "" : valid.message;
       case "confirmPassword":
         return value !== formData.password ? "Passwords do not match" : "";
       default:
@@ -58,6 +60,7 @@ function Signup({ userType = "Account", onSubmit, error, inputFields = [] }) {
   };
 
   return (
+    // <h1>Sign up</h1>
     <form onSubmit={handleSubmit} className="space-y-6 p-5 w-full md:w-3/4">
       {error && (
         <Alert variant="destructive">
@@ -80,23 +83,23 @@ function Signup({ userType = "Account", onSubmit, error, inputFields = [] }) {
         />
       ))}
 
-      <div className="flex gap-4">
-        <button
-          type="button"
-          onClick={() => router.push("/home")}
-          className="flex-1 bg-gray-700 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-        >
-          <UserPlus className="inline-block mr-2" />
-          Create {userType}
-        </button>
-      </div>
-    </form>
+       <div className="flex gap-4">
+         <button
+           type="button"
+           onClick={() => router.push("/home")}
+           className="flex-1 bg-gray-700 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+         >
+           Cancel
+         </button>
+         <button
+           type="submit"
+           className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+         >
+           <UserPlus className="inline-block mr-2" />
+           Create {userType}
+         </button>
+       </div>
+     </form>
   );
 }
 

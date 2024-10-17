@@ -91,7 +91,7 @@ const CreatePage = ({ params }) => {
 
   const handleCreateUser = async (formData) => {
     console.log(formData);
-    console.log("created role:", capitalizeFirstLetter(createdRole));
+    console.log("created role:", createdRole);
     try {
       setIsLoading(true);
       const res = await fetch("/api/auth/signup", {
@@ -104,7 +104,7 @@ const CreatePage = ({ params }) => {
           name: formData.name,
           email: formData.email,
           password: formData.password,
-          role: capitalizeFirstLetter(createdRole),
+          role: createdRole,
           department: formData.department || dept,
           universityName: formData.universityName || universityName,
           teacherType: createdRole === "teacher" ? formData.teacherType : undefined,
@@ -114,7 +114,7 @@ const CreatePage = ({ params }) => {
       const data = await res.json();
 
       if (res.ok) {
-        router.push("/home");
+        router.push("/allusers");
       } else {
         setError(data.message || `Error during ${createdRole} creation`);
         console.log(data);
@@ -132,9 +132,9 @@ const CreatePage = ({ params }) => {
   const canCreate =
     role === "admin"
       ? "coe"
-      : role === "COE"
+      : role === "coe"
       ? "hod"
-      : role === "HOD"
+      : role === "hod"
       ? "teacher"
       : "";
 
@@ -152,8 +152,7 @@ const CreatePage = ({ params }) => {
         <div className="text-center p-8 bg-white rounded-lg shadow-lg">
           <h1 className="text-2xl font-bold mb-4">Access Denied</h1>
           <p className="text-gray-600">
-            {role}s can not create {createdRole}. {createdRole} is created by{" "}
-            {canCreate}
+            {role}s can not create {createdRole}.
           </p>
           <button
             onClick={() => router.push("/home")}
@@ -167,6 +166,7 @@ const CreatePage = ({ params }) => {
   }
 
   return (
+    // <div>OK</div>
     <div className="flex min-h-[95vh] flex-col justify-start items-center p-4">
       <div className="w-1/2 pb-3 pt-10">
         <h2 className="text-3xl text-white font-bold mb-4 text-center">

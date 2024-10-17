@@ -42,7 +42,7 @@ function DashboardPage() {
 
   if (!role) {
     return (
-      <div className="pt-1 min-h-screen px-4">
+      <div className="pt-1 min-h-[96vh] px-4">
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative h-auto min-w-screen" role="alert">
           <strong className="font-bold">Authentication error: </strong>
           <span className="block sm:inline">Please log in again.</span>

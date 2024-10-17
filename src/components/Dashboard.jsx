@@ -50,7 +50,7 @@ export default function Dashboard({ role }) {
   const buttons = getButtonsForRole(role);
 
   return (
-    <div className="flex flex-col w-auto min-h-screen">
+    <div className="flex flex-col w-auto min-h-[96vh]">
       <header className="flex items-end justify-center text-white pt-[10vh] animate-fadeInDown">
         <div className="mb-2">
           <h1 className="text-5xl font-extrabold p-3 text-center">

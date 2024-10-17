@@ -15,16 +15,16 @@ import selectModerator from "@/assets/selectModerator.svg";
 
 const AdminButtons = [
   { Icon: cteareCOE, text: "Create COE", path: "/create/coe" },
-  { Icon: cteareHOD, text: "Create HOD", path: "/create/hod" },
-  { Icon: viewCOE, text: "View All COEs", path: "/list/coelist" },
-  { Icon: viewHOD, text: "View All HODs", path: "/list/hodlist" },
+  // { Icon: cteareHOD, text: "Create HOD", path: "/create/hod" },
+  { Icon: viewCOE, text: "View All COEs", path: "/allusers" },
+  // { Icon: viewHOD, text: "View All HODs", path: "/list/hodlist" },
   { Icon: ctearePaper, text: "Create Paper", path: "#" },
   { Icon: viewPaper, text: "View Paper", path: "#" },
 ];
 
 const COEButtons = [
   { Icon: cteareHOD, text: "Create HOD", path: "/create/hod" },
-  { Icon: viewHOD, text: "View All HODs", path: "/list/hodlist" },
+  { Icon: viewHOD, text: "View All HODs", path: "/allusers" },
   { Icon: ctearePaper, text: "Create Paper", path: "#" },
   { Icon: viewPaper, text: "View Paper", path: "#" },
 ];

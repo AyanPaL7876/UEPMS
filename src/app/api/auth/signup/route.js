@@ -1,7 +1,8 @@
 import { connect } from "@/db";
 import bcrypt from "bcryptjs";
-import { User, UserValidationSchema } from "@/modules";
+import { User } from "@/modules";
 import { authMiddleware } from "@/middleware";
+import { validatePassword } from "@/lib";
 import { NextRequest, NextResponse } from "next/server";
 
 await connect();
@@ -34,11 +35,11 @@ export async function POST(request = NextRequest) {
     } else {
       // For non-admin roles, proceed with the existing logic
       const validateRole =
-        role === "Teacher"
-          ? "HOD"
-          : role === "HOD"
-          ? "COE"
-          : role === "COE"
+        role === "teacher"
+          ? "hod"
+          : role === "hod"
+          ? "coe"
+          : role === "coe"
           ? "admin"
           : "";
 
@@ -48,12 +49,17 @@ export async function POST(request = NextRequest) {
           { status: 400 }
         );
       }
+      const passwordValidation = validatePassword(password);
+      if(!passwordValidation.success){
+        return NextResponse.json({ success: false, message: passwordValidation.message }, { status: 400 });
+      }
 
       // Call middleware for authentication
       const { success, user, message, status } = await authMiddleware(
         [validateRole],
         request
       );
+
 
       currUser = user;
 
@@ -63,9 +69,9 @@ export async function POST(request = NextRequest) {
 
       // Check permissions
       if (
-        (user.role !== "admin" && role === "COE") ||
-        (user.role !== "COE" && role === "HOD") ||
-        (user.role !== "HOD" && role === "Teacher")
+        (user.role !== "admin" && role === "coe") ||
+        (user.role !== "coe" && role === "hod") ||
+        (user.role !== "hod" && role === "teacher")
       ) {
         return NextResponse.json(
           {
@@ -87,39 +93,38 @@ export async function POST(request = NextRequest) {
       universityName:
         role === "admin"
           ? undefined
-          : role !== "COE"
+          : role !== "coe"
           ? currUser.universityName
           : universityName,
       department:
-        role === "HOD"
+        role === "hod"
           ? department
-          : role === "Teacher"
+          : role === "teacher"
           ? currUser.department
           : undefined,
-      teacherType: role === "Teacher" ? teacherType : undefined,
+      teacherType: role === "teacher" ? teacherType : undefined,
       createdBy: role !== "admin" ? currUser._id : undefined,
+      password : hashedPassword
     };
 
     console.log("data : ", data);
-    validationSchema(data);
-    data.password = hashedPassword;
     const newUser = new User(data);
     await newUser.save();
 
     // Update the creating user's document (not applicable for admin creation)
     if (role !== "admin") {
       switch (role) {
-        case "COE":
+        case "coe":
           await User.findByIdAndUpdate(currUser._id, {
             $push: { coes: newUser._id },
           });
           break;
-        case "HOD":
+        case "hod":
           await User.findByIdAndUpdate(currUser._id, {
             $push: { hods: newUser._id },
           });
           break;
-        case "Teacher":
+        case "teacher":
           await User.findByIdAndUpdate(currUser._id, {
             $push: { teachers: newUser._id },
           });
@@ -156,20 +161,3 @@ export async function POST(request = NextRequest) {
     );
   }
 }
-
-
-// Validate user input using UserValidationSchema
-function validationSchema(data) {
-  
-    const { error, value } = UserValidationSchema.validate(data, {
-      abortEarly: false,
-    });
-
-    if (error) {
-      const errorMessages = error.details.map((detail) => detail.message);
-      return NextResponse.json(
-        { success: false, message: "Validation error", errors: errorMessages },
-        { status: 400 }
-      );
-    }
-};
