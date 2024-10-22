@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Users } from 'lucide-react';
 import { getUsers } from '@/lib';
 import Image from "next/image";
+import Loading from '@/components/common/loading';
 
 const UserCard = ({ name, email, profilePicture }) => (
   <div className="flex items-center space-x-4 p-4 bg-[#4b5f728b] rounded-lg cursor-pointer shadow-md transform transition duration-300 hover:scale-105 btn_hover whitespace-normal break-words"
@@ -43,7 +44,11 @@ const UserListUI = () => {
     fetchUsers();
   }, []);
 
-  if (loading) return <div className="text-center p-6">Loading...</div>;
+  if (loading) return (
+    <div className="flex min-h-screen items-center justify-center">
+      <Loading />
+    </div>
+  );
   if (error) return <div className="text-center p-6 text-red-500">Error: {error}</div>;
 
   return (

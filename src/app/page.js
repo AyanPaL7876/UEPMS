@@ -164,7 +164,7 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-800 to-purple-800 transform -skew-y-6 z-0 animate-pulse"></div>
           <div className="relative z-10 py-16">
             <h2 className="text-4xl font-extrabold mb-12 text-center py-1">
-              Why ExamPro?
+              Why QuestionMaster?
             </h2>
             <div className="grid md:grid-cols-3 gap-8 py-5 px-8">
               <BenefitCard
@@ -174,13 +174,13 @@ const Home = () => {
               />
               <BenefitCard
                 icon={<FaClock size={32} />}
-                title="AI-Powered Efficiency"
-                description="Leverage machine learning for smart question selection and rapid paper generation."
+                title="PDF Generation in Seconds"
+                description="Generate exam papers in PDF format instantly, saving hours of manual work."
               />
               <BenefitCard
                 icon={<FaAward size={32} />}
-                title="Rigorous Quality Assurance"
-                description="Implement rigorous review processes to ensure consistently high-quality exam papers."
+                title="Quality Assurance"
+                description="Ensure error-free question papers with automated plagiarism checks and question validation."
               />
             </div>
           </div>
@@ -191,7 +191,7 @@ const Home = () => {
           <h3 className="text-4xl font-extrabold mb-8 py-1">
             Ready to Transform Your Exam Management?
           </h3>
-          <Link href="/signup">
+          <Link href="/login">
             <span className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-10 py-4 rounded-full text-xl font-semibold hover:scale-110 transition transform hover:shadow-lg animate-pulse inline-flex items-center">
               Get Started Now
               <FaArrowRight className="ml-2" />

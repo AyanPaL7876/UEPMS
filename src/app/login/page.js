@@ -14,7 +14,6 @@ const LoginPage = () => {
   const handleLoginIn = async ({ email, password }) => {
     setIsLoading(true);
     setError("");
-    console.log(email + " and " + password);
     try {
       const res = await fetch(`/api/auth/login`, {
         method: "POST",
@@ -41,12 +40,6 @@ const LoginPage = () => {
       console.log("1 : " + previousPage);
     }
   };
-
-  // useEffect(() => {
-  //   // Store the referrer (previous page URL)
-  //   setPreviousPage(document.referrer);
-  //   console.log(previousPage);
-  // }, [document.referrer]);
 
   return (
     <div>

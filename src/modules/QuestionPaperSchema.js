@@ -43,10 +43,10 @@ const questionPaperSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  programName: [{
+  programName: {
     type: String,
     required: true,
-  }],
+  },
   paperCode: {
     type: String,
     required: true,
@@ -56,11 +56,7 @@ const questionPaperSchema = new mongoose.Schema({
     enum: ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"],
     required: true,
   },
-  subjectName: {
-    type: String,
-    required: true,
-  },
-  subjectCode: {
+  paperName: {
     type: String,
     required: true,
   },
@@ -74,11 +70,7 @@ const questionPaperSchema = new mongoose.Schema({
     required: true,
     min: 1,
   },
-  questionTypes: {
-    groupA: questionGroupSchema,
-    groupB: questionGroupSchema,
-    groupC: questionGroupSchema,
-  },
+  questionTypes: [questionGroupSchema],
   questionGroups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "QuestionGroup",
@@ -112,7 +104,8 @@ const questionPaperSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Add compound index for year and paperCode
+// module.exports = mongoose.model("QuestionPaper", questionPaperSchema);
+
 questionPaperSchema.index({ year: 1, uniName:1, paperCode: 1 }, { unique: true });
 
 const QuestionPaper = mongoose.models.QuestionPaper || mongoose.model("QuestionPaper", questionPaperSchema);

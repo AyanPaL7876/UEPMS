@@ -25,16 +25,16 @@ const AdminButtons = [
 const COEButtons = [
   { Icon: cteareHOD, text: "Create HOD", path: "/create/hod" },
   { Icon: viewHOD, text: "View All HODs", path: "/allusers" },
-  { Icon: ctearePaper, text: "Create Paper", path: "#" },
+  { Icon: ctearePaper, text: "Create Paper", path: "/create/question" },
   { Icon: viewPaper, text: "View Paper", path: "#" },
 ];
 
 const HODButtons = [
   { Icon: CteareTeacher, text: "Create Teacher", path: "/create/teacher" },
   // { Icon: CteareModerator, text: "Create Moderator", path: "/create/moderator" },
-  { Icon: viewTeacher, text: "All Teachers", path: "/list/teacherlist" },
+  { Icon: viewTeacher, text: "All Teachers", path: "/allusers" },
   // { Icon: viewModerator, text: "All Moderators", path: "/list/moderatorlist" },
-  { Icon: selectTeacher, text: "Select Teacher", path: "/list/teacherlist" },
+  { Icon: selectTeacher, text: "Select Teacher", path: "/allusers" },
   { Icon: selectModerator, text: "Select Moderators", path: "/list/moderatorlist" },
 ];
 

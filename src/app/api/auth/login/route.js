@@ -65,6 +65,8 @@ export async function POST(request = NextRequest) {
           name: user.name,
           email: user.email,
           role: user.role,
+          department: user.department,
+          universityName: user.universityName,
         },
       },
       { status: 200 }
