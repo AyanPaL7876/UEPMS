@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { User, QuestionPaper } from "@/modules";
+import { User, QuestionPaper } from "@/models";
 
 export const questionGroupCreateparmition = async (user, questionPaperId) => {
   if (!user || !questionPaperId) {

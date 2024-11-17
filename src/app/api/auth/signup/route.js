@@ -1,163 +1,195 @@
 import { connect } from "@/db";
 import bcrypt from "bcryptjs";
-import { User } from "@/modules";
-import { authMiddleware } from "@/middleware";
-import { validatePassword } from "@/lib";
+import { User } from "@/models";
 import { NextRequest, NextResponse } from "next/server";
+import { validatePassword } from "@/lib";
 
-await connect();
+// Constants
+const VALID_ROLES = ["admin", "coe", "hod", "teacher"];
+const VALID_TEACHER_TYPES = ["external", "internal"];
+const PHONE_LENGTH = 10;
 
-export async function POST(request = NextRequest) {
-  let currUser;
-
+export async function POST(request) {
   try {
+    await connect();
+    const reqBody = await request.json();
+    
+    // Validate required fields
+    const missingFields = validateRequiredFields(reqBody);
+    if (missingFields.length > 0) {
+      return NextResponse.json(
+        { success: false, message: `Missing required fields: ${missingFields.join(", ")}` },
+        { status: 400 }
+      );
+    }
 
-    const {
-      name,
-      email,
-      password,
-      role,
-      department,
-      universityName,
-      teacherType,
-    } = await request.json();
+    // Validate email format
+    if (!isValidEmail(reqBody.email)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid email format" },
+        { status: 400 }
+      );
+    }
 
-    // Check if it's an admin creation
-    if (role === "admin") {
-      const adminCount = await User.countDocuments({ role: "admin" });
-      console.log("Admin Count:", adminCount);
-      if (adminCount > 0) {
+    // Validate role
+    if (!VALID_ROLES.includes(reqBody.role)) {
+      return NextResponse.json(
+        { success: false, message: `Invalid role. Must be one of: ${VALID_ROLES.join(", ")}` },
+        { status: 400 }
+      );
+    }
+
+    // Check admin limit
+    if (reqBody.role === "admin") {
+      const adminExists = await checkAdminExists();
+      if (adminExists) {
         return NextResponse.json(
           { success: false, message: "Admin already exists" },
           { status: 400 }
         );
       }
-    } else {
-      // For non-admin roles, proceed with the existing logic
-      const validateRole =
-        role === "teacher"
-          ? "hod"
-          : role === "hod"
-          ? "coe"
-          : role === "coe"
-          ? "admin"
-          : "";
+    }
 
-      if (!validateRole) {
-        return NextResponse.json(
-          { success: false, message: "Invalid role specified" },
-          { status: 400 }
-        );
-      }
-      const passwordValidation = validatePassword(password);
-      if(!passwordValidation.success){
-        return NextResponse.json({ success: false, message: passwordValidation.message }, { status: 400 });
-      }
-
-      // Call middleware for authentication
-      const { success, user, message, status } = await authMiddleware(
-        [validateRole],
-        request
+    // Validate role-specific requirements
+    const roleValidation = await validateRoleRequirements(reqBody);
+    if (!roleValidation.isValid) {
+      return NextResponse.json(
+        { success: false, message: roleValidation.message },
+        { status: 400 }
       );
-
-
-      currUser = user;
-
-      if (!success) {
-        return NextResponse.json({ success: false, message }, { status });
-      }
-
-      // Check permissions
-      if (
-        (user.role !== "admin" && role === "coe") ||
-        (user.role !== "coe" && role === "hod") ||
-        (user.role !== "hod" && role === "teacher")
-      ) {
-        return NextResponse.json(
-          {
-            success: false,
-            message: "You do not have permission to create this user role",
-          },
-          { status: 403 }
-        );
-      }
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const data = {
-      name,
-      email,
-      password,
-      role,
-      universityName:
-        role === "admin"
-          ? undefined
-          : role !== "coe"
-          ? currUser.universityName
-          : universityName,
-      department:
-        role === "hod"
-          ? department
-          : role === "teacher"
-          ? currUser.department
-          : undefined,
-      teacherType: role === "teacher" ? teacherType : undefined,
-      createdBy: role !== "admin" ? currUser._id : undefined,
-      password : hashedPassword
-    };
-
-    console.log("data : ", data);
-    const newUser = new User(data);
-    await newUser.save();
-
-    // Update the creating user's document (not applicable for admin creation)
-    if (role !== "admin") {
-      switch (role) {
-        case "coe":
-          await User.findByIdAndUpdate(currUser._id, {
-            $push: { coes: newUser._id },
-          });
-          break;
-        case "hod":
-          await User.findByIdAndUpdate(currUser._id, {
-            $push: { hods: newUser._id },
-          });
-          break;
-        case "teacher":
-          await User.findByIdAndUpdate(currUser._id, {
-            $push: { teachers: newUser._id },
-          });
-          break;
-      }
-    }
-
-    return NextResponse.json(
-      {
-        success: true,
-        data: {
-          id: newUser._id,
-          name: newUser.name,
-          email: newUser.email,
-          role: newUser.role,
-          universityName: newUser.universityName,
-          department: newUser.department,
-          teacherType: newUser.teacherType,
-        },
-      },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error("Sign-up Error:", error);
-    if (error.code === 11000) {
+    // Check for existing user
+    const existingUser = await User.findOne({ email: reqBody.email });
+    if (existingUser) {
       return NextResponse.json(
         { success: false, message: "Email already exists" },
         { status: 400 }
       );
     }
+
+    // Format and validate phone
+    const formattedPhone = formatPhone(reqBody.phone);
+    if (!formattedPhone) {
+      return NextResponse.json(
+        { success: false, message: "Invalid phone number" },
+        { status: 400 }
+      );
+    }
+
+    // Hash password
+    validatePassword(reqBody.password);
+    const hashedPassword = await bcrypt.hash(reqBody.password, 10);
+
+    // Create user
+    const userData = createUserData(reqBody, hashedPassword, formattedPhone);
+    const newUser = new User(userData);
+    await newUser.save();
+
     return NextResponse.json(
-      { success: false, message: error.message },
+      {
+        success: true,
+        data: sanitizeUserData(newUser),
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Sign-up Error:", error);
+    return NextResponse.json(
+      { 
+        success: false, 
+        message: "Internal server error",
+        detail: process.env.NODE_ENV === 'development' ? error.message : undefined 
+      },
       { status: 500 }
     );
   }
+}
+
+// Helper functions
+function validateRequiredFields(data) {
+  const requiredFields = [
+    "name",
+    "email",
+    "password",
+    "role",
+    "universityName",
+    "phone",
+    "address",
+    "employeeId",
+    "specialization",
+    "experience",
+  ];
+  return requiredFields.filter(field => !data[field]);
+}
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+async function checkAdminExists() {
+  const adminCount = await User.countDocuments({ role: "admin" });
+  return adminCount > 0;
+}
+
+async function validateRoleRequirements(data) {
+  if ((data.role === "hod" || data.role === "teacher") && (!data.school || !data.department)) {
+    return {
+      isValid: false,
+      message: "school and department are required for HOD and teacher roles",
+    };
+  }
+
+  if (data.role === "teacher" && (!data.teacherType || !VALID_TEACHER_TYPES.includes(data.teacherType))) {
+    return {
+      isValid: false,
+      message: `Valid teacherType (${VALID_TEACHER_TYPES.join(" or ")}) is required for teacher role`,
+    };
+  }
+
+  return { isValid: true };
+}
+
+function formatPhone(phone) {
+  if (!phone || phone.length !== PHONE_LENGTH) {
+    return null;
+  }
+  return `+91${phone}`;
+}
+
+function createUserData(data, hashedPassword, formattedPhone) {
+  return {
+    name: data.name,
+    email: data.email,
+    password: hashedPassword,
+    role: data.role,
+    universityName: data.universityName,
+    phone: formattedPhone,
+    address: data.address,
+    employeeId: data.employeeId,
+    specialization: data.specialization,
+    experience: data.experience,
+    status: "active",
+    department: data.department || undefined,
+    school: data.school || undefined,
+    teacherType: data.role === "teacher" ? data.teacherType : undefined,
+    createdAt: new Date(),
+  };
+}
+
+function sanitizeUserData(user) {
+  return {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    universityName: user.universityName,
+    department: user.department,
+    school: user.school,
+    teacherType: user.teacherType,
+    status: user.status,
+    createdAt: user.createdAt,
+    lastLogin: user.lastLogin,
+  };
 }

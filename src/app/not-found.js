@@ -26,7 +26,7 @@ export default function NotFound() {
   }, [router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
       <div className="max-w-md w-full space-y-8 text-center">
         <div className="space-y-4">
           <h1 className="text-9xl font-extrabold text-white tracking-widest">

@@ -1,5 +1,5 @@
 import { connect } from "@/db";
-import { User } from "@/modules";
+import { User } from "@/models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
@@ -37,6 +37,7 @@ export async function POST(request = NextRequest) {
       name: user.name,
       email: user.email,
       role: user.role,
+      phone: user.phone,
     };
 
     // Conditionally add `dept` if the role is neither 'admin' nor 'COE'
@@ -49,7 +50,7 @@ export async function POST(request = NextRequest) {
     }
 
     // Sign the token with the constructed data
-    const token = jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign(data, process.env.TOKEN_SECRET, { expiresIn: "2d" });
 
     console.log(token);
 
