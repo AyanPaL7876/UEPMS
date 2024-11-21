@@ -3,6 +3,7 @@
 import React, { useContext } from "react";
 import { Book, Building2, IdCard } from "lucide-react";
 import { ProfileContext } from "@/hooks/ProfileContext";
+import Link from "next/link";
 
 const InfoItem = ({ icon: Icon, colorClass, label, content }) => (
   <div className="flex items-start space-x-4">
@@ -35,9 +36,12 @@ const DetailsCard = () => {
         ))}
       </div>
       <div className="flex justify-end items-end mt-8 mr-10">
-        <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-xl p-2 mt-4 w-40">
+        <Link href="/profile/change-password">
+          <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-xl p-2 mt-4 w-40">
           Update password
-        </button>
+          </button>
+
+        </Link>
       </div>
     </div>
   );

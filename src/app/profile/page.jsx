@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { getTokenFromCookies } from "@/utils/auth";
 import { ProfileContext } from "@/hooks/ProfileContext";
 import LoadingPage from "@/components/loading/LoadingPage";
+import ExamPDFGenerator from "@/components/pdf";
 
 function Page() {
   const [profileData, setProfileData] = useState({});
@@ -58,6 +59,7 @@ function Page() {
   return (
     <ProfileContext.Provider value={{ profileData, isLogin }}>
       <div>
+        {/* <ExamPDFGenerator /> */}
         <Dashboard />
       </div>
     </ProfileContext.Provider>

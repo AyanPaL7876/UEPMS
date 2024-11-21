@@ -7,8 +7,8 @@ import Tasks from "./Tasks";
 
 const adminButtons = [
   { href: "/profile/createuser", icon: Plus, label: "Create new User" },
-  { href: "/profile/createuser", icon: Plus, label: "Create new Depertment" },
-  { href: "/profile/createuser", icon: Plus, label: "Create new School" },
+  { href: "/profile/createschool", icon: Plus, label: "Create new School" },
+  { href: "/profile/createdept", icon: Plus, label: "Edit School or add Dept" },
   { href: "/#", icon: ChartNoAxesGantt, label: "Change user Role" },
   { href: "/#", icon: Plus, label: "Update Password" },
   { href: "/#", icon: User, label: "Edit User details" },

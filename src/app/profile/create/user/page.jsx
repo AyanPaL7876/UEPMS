@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import UserIP from "@/components/createUser/userIP";
+import UserIP from "@/components/create/user/userIP";
 import { CreateUserProvider } from "@/hooks/createUserContext";
 import { getTokenFromCookies, decodeToken } from "@/utils/auth";
 import UnauthorizedPage from "@/components/UnauthorizedPage";
-import { set } from "lodash";
 import LoadingPage from "@/components/loading/LoadingPage";
 
 function Page() {
@@ -18,16 +17,14 @@ function Page() {
     const initializeDashboard = () => {
       const token = getTokenFromCookies();
       if (!token) {
-        console.error("Token not found in cookies");
+        console.log("Token not found in cookies");
         router.push("/login");
         return;
       }
 
       const decodedToken = decodeToken(token);
       if (!decodedToken?.role) {
-        console.error("Role not found in the token");
-        router.push("/login");
-        return;
+        console.log("Role not found in the token");
       }
 
       setRole(decodedToken.role);
