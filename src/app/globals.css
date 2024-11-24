@@ -41,3 +41,32 @@ html {
             backdrop-filter: blur(3px);
 }
 
+/* Playfair Display */
+.playfair-display-bold {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+/* Sofadi One */
+.sofadi-one-regular {
+  font-family: "Sofadi One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Nunito */
+.nunito-medium {
+  font-family: "Nunito", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Jost */
+.jost-light {
+  font-family: "Jost", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}

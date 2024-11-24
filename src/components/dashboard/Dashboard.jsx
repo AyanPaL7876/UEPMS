@@ -6,12 +6,14 @@ import { ChartNoAxesGantt, Plus, User } from "lucide-react";
 import Tasks from "./Tasks";
 
 const adminButtons = [
-  { href: "/profile/createuser", icon: Plus, label: "Create new User" },
-  { href: "/profile/createschool", icon: Plus, label: "Create new School" },
-  { href: "/profile/createdept", icon: Plus, label: "Edit School or add Dept" },
-  { href: "/#", icon: ChartNoAxesGantt, label: "Change user Role" },
-  { href: "/#", icon: Plus, label: "Update Password" },
-  { href: "/#", icon: User, label: "Edit User details" },
+  { href: "/create/user", icon: Plus, label: "Create new User" },
+  { href: "/create/school", icon: Plus, label: "Create new School" },
+  { href: "/create/dept", icon: Plus, label: "Edit School or add Dept" },
+  // { href: "/#", icon: ChartNoAxesGantt, label: "Change user Role" },
+  // { href: "/#", icon: Plus, label: "Update Password" },
+  // { href: "/#", icon: User, label: "Edit User details" },
+  { href: "/create/questionpaper", icon: Plus, label: "Create Question paper" },
+  { href: "/visit/questionpaper", icon: ChartNoAxesGantt, label: "View Question paper" },
 ];
 
 const coeButtons = [
@@ -29,6 +31,13 @@ const hodButtons = [
   { href: "/#", icon: User, label: "Select Final Paper" },
 ];
 
+const teacherButtons = [
+  { href: "/create/questionpaper", icon: Plus, label: "Create Question paper" },
+  { href: "/visit/questionpaper", icon: ChartNoAxesGantt, label: "View Question paper" },
+  { href: "/#", icon: Plus, label: "View Question Status" },
+  { href: "/#", icon: User, label: "View Previous year Paper" },
+];
+
 function Dashboard() {
   const { profileData } = useContext(ProfileContext);
   return (
@@ -37,7 +46,7 @@ function Dashboard() {
       {profileData.role === "admin" && <ActionButton buttons={adminButtons} />}
       {profileData.role === "coe" && <ActionButton buttons={coeButtons} />}
       {profileData.role === "hod" && <ActionButton buttons={hodButtons} />}
-      {profileData.role === "teacher" && <Tasks />}
+      {profileData.role === "teacher" && <ActionButton buttons={teacherButtons} />}
     </div>
   );
 }

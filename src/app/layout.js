@@ -29,10 +29,10 @@ export default function RootLayout({ children }) {
           <p>&copy; 2024 QuestionMaster. All rights reserved.</p>
         </div>
       </footer>
-      <div className="absolute top-[5%] left-[5%] w-32 h-32 border border-blue-500/20 rounded-full animate-pulse" />
-        <div className="absolute top-[5%] right-[5%] w-10 h-10 border border-blue-500/20 rounded-full animate-[spin_8s_linear_infinite_reverse]" />
-        <div className="absolute bottom-[5%] left-[5%] w-10 h-10 border border-indigo-500/20 rounded-full animate-[spin_8s_linear_infinite_reverse]" />
-        <div className="absolute bottom-[5%] right-[5%] w-32 h-32 border border-indigo-500/20 rounded-full animate-[spin_8s_linear_infinite]"/>
+      <div className="fixed top-[5%] left-[5%] w-32 h-32 border border-blue-500/20 rounded-full animate-pulse" />
+        <div className="fixed top-[5%] right-[5%] w-10 h-10 border border-blue-500/20 rounded-full animate-[spin_8s_linear_infinite_reverse]" />
+        <div className="fixed bottom-[5%] left-[5%] w-10 h-10 border border-indigo-500/20 rounded-full animate-[spin_8s_linear_infinite_reverse]" />
+        <div className="fixed bottom-[5%] right-[5%] w-32 h-32 border border-indigo-500/20 rounded-full animate-[spin_8s_linear_infinite]"/>
       </body>
     </html>
   );
