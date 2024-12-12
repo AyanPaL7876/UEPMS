@@ -38,7 +38,7 @@ export default function SchoolForm({ onAdd, errorMsg, successMsg, universityName
       <div className=" p-6">
         <div className="flex items-center justify-center gap-3 mb-3">
           <GraduationCap className="w-8 h-8 text-white/90" />
-          <h2 className="text-2xl font-bold text-white">Edit School</h2>
+          <h2 className="text-2xl font-bold text-white">Create School</h2>
         </div>
         <p className="text-blue-100/80 text-center text-sm">
           Edit the details below to edit school or add new departments

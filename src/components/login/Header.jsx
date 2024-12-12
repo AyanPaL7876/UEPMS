@@ -11,7 +11,7 @@ function Header() {
             <Link href="/">
               <span className="text-2xl font-bold text-white flex items-center">
                 <FaGraduationCap className="mr-2" />
-                UEMS
+                UEPMS
               </span>
             </Link>
           </div>

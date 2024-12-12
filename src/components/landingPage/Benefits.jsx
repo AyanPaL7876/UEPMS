@@ -11,7 +11,7 @@ function Benefits() {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-800 to-purple-800 transform -skew-y-6 z-0 animate-pulse"></div>
           <div className="relative z-10 py-16">
             <h2 className="text-4xl font-extrabold mb-12 text-center py-1">
-              Why QuestionMaster?
+              Why UEPMS?
             </h2>
             <div className="grid md:grid-cols-3 gap-8 py-5 px-8">
               <BenefitCard

@@ -9,15 +9,14 @@ const adminButtons = [
   { href: "/create/user", icon: Plus, label: "Create new User" },
   { href: "/create/school", icon: Plus, label: "Create new School" },
   { href: "/create/dept", icon: Plus, label: "Edit School or add Dept" },
-  // { href: "/#", icon: ChartNoAxesGantt, label: "Change user Role" },
-  // { href: "/#", icon: Plus, label: "Update Password" },
-  // { href: "/#", icon: User, label: "Edit User details" },
-  { href: "/create/questionpaper", icon: Plus, label: "Create Question paper" },
-  { href: "/visit/questionpaper", icon: ChartNoAxesGantt, label: "View Question paper" },
+  { href: "/#", icon: ChartNoAxesGantt, label: "Change user Role" },
+  { href: "/#", icon: User, label: "Edit User" },
+  // { href: "/create/questionpaper", icon: Plus, label: "Create Question paper" },
+  // { href: "/visit/questionpaper", icon: ChartNoAxesGantt, label: "View Question paper" },
 ];
 
 const coeButtons = [
-  { href: "/#", icon: Plus, label: "Create Question paper" },
+  // { href: "/#", icon: Plus, label: "Create Question paper" },
   { href: "/#", icon: ChartNoAxesGantt, label: "View current Question" },
   { href: "/#", icon: Plus, label: "View Question Status" },
   { href: "/#", icon: User, label: "View Previous year Paper" },
@@ -34,8 +33,8 @@ const hodButtons = [
 const teacherButtons = [
   { href: "/create/questionpaper", icon: Plus, label: "Create Question paper" },
   { href: "/visit/questionpaper", icon: ChartNoAxesGantt, label: "View Question paper" },
-  { href: "/#", icon: Plus, label: "View Question Status" },
-  { href: "/#", icon: User, label: "View Previous year Paper" },
+  { href: "/#", icon: ChartNoAxesGantt, label: "View Question Status" },
+  { href: "/#", icon: ChartNoAxesGantt, label: "View Previous year Paper" },
 ];
 
 function Dashboard() {

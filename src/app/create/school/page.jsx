@@ -85,7 +85,7 @@ export default function Home() {
   if (role !== "admin") return <UnauthorizedPage />;
 
   return (
-    <div className="container mx-auto p-6 space-y-6 bg-slate-950 flex justify-around flex-col md:flex-row min-h-screen">
+    <div className="container mx-auto p-6 space-y-6 bg-slate-950 flex justify-around flex-col md:flex-row min-h-screen min-w-full">
       <div className="w-96 pt-6">
         <SchoolForm
           onAdd={handleAddUniversity}

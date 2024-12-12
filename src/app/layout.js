@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
         {children}
         <footer className="bg-slate-950 text-white py-2">
         <div className="container mx-auto px-1 text-center">
-          <p>&copy; 2024 QuestionMaster. All rights reserved.</p>
+          <p>&copy; 2024 UEPMS. All rights reserved.</p>
         </div>
       </footer>
       <div className="fixed top-[5%] left-[5%] w-32 h-32 border border-blue-500/20 rounded-full animate-pulse" />

@@ -51,12 +51,12 @@ function Navbar() {
       <div className={`fixed top-0 left-0 right-0 bg-slate-950/90 backdrop-blur-sm transition-all duration-300 ${
         scrolled ? "shadow-lg shadow-slate-900/50" : ""
       }`}>
-        <div className="mx-auto px-6 py-4 flex justify-between items-center z-50">
+        <div className="mx-auto px-8 py-4 flex justify-between items-center z-50">
           <div className="flex justify-between items-center">
             <Link href="/">
               <span className="text-2xl font-bold text-white flex items-center">
                 <FaGraduationCap className="mr-2" />
-                UEMS
+                UEPMS
               </span>
             </Link>
           </div>

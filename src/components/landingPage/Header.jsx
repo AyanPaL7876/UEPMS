@@ -35,16 +35,16 @@ const Header = () => {
             <Link href="/">
               <span className="text-2xl font-bold text-white flex items-center">
                 <FaGraduationCap className="mr-2" />
-                UEMS
+                UEPMS
               </span>
             </Link>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-6">
-              <NavLink href="#features">Features</NavLink>
-              <NavLink href="#benefits">Benefits</NavLink>
-              <NavLink href="#pricing">Pricing</NavLink>
-              <NavLink href="#contact">Contact</NavLink>
+              {/* <NavLink href="#features">Features</NavLink>
+              <NavLink href="#benefits">Why</NavLink> */}
+              {/* <NavLink href="#pricing">Pricing</NavLink>
+              <NavLink href="#contact">Contact</NavLink> */}
             </div>
             <div className="hidden md:flex space-x-3">
               <ActionButton
@@ -74,14 +74,14 @@ const Header = () => {
                 Features
               </NavLink>
               <NavLink href="#benefits" mobile>
-                Benefits
+                Why
               </NavLink>
-              <NavLink href="#pricing" mobile>
+              {/* <NavLink href="#pricing" mobile>
                 Pricing
               </NavLink>
               <NavLink href="#contact" mobile>
                 Contact
-              </NavLink>
+              </NavLink> */}
               <div className="mt-4 space-y-2">
                 <ActionButton
                   href="/login"
