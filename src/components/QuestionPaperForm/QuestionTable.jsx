@@ -29,41 +29,50 @@ const AutoResizeTextArea = ({ value, onChange, className }) => {
 };
 
 const QuestionTable = ({ group, groupIndex, formData, setFormData, onRemoveQuestion }) => {
-    const knowledgeLevels = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
-    const courseOutcomes = ['CO1', 'CO2', 'CO3', 'CO4', 'CO5'];
+  const knowledgeLevels = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6'];
+  const courseOutcomes = ['CO1', 'CO2', 'CO3', 'CO4', 'CO5'];
 
-    const addAlternativeQuestion = (questionIndex) => {
-      const updatedGroups = [...formData.groups];
-      const currentQuestion = updatedGroups[groupIndex].questions[questionIndex];
-      
-      if (!currentQuestion.type) {
-        currentQuestion.type = 'alternative';
-        currentQuestion.questions = [
-          { ...currentQuestion },
-          {
-            number: `${currentQuestion.number}(b)`,
-            text: "",
-            marks: "",
-            level: "",
-            outcome: ""
-          }
-        ];
-        delete currentQuestion.text;
-        delete currentQuestion.marks;
-        delete currentQuestion.level;
-        delete currentQuestion.outcome;
-      } else {
-        currentQuestion.questions.push({
-          number: `${currentQuestion.number}(${String.fromCharCode(97 + currentQuestion.questions.length)})`,
+  const calculateQuestionNumber = (questionIndex) => {
+    let startNumber = 1;
+    // Calculate start number based on previous groups
+    for (let i = 0; i < groupIndex; i++) {
+      startNumber += formData.groups[i].questions.length;
+    }
+    return startNumber + questionIndex;
+  };
+
+  const addAlternativeQuestion = (questionIndex) => {
+    const updatedGroups = [...formData.groups];
+    const currentQuestion = updatedGroups[groupIndex].questions[questionIndex];
+    const baseNumber = calculateQuestionNumber(questionIndex);
+    
+    if (!currentQuestion.type) {
+      currentQuestion.type = 'alternative';
+      currentQuestion.questions = [
+        { ...currentQuestion },
+        {
+          number: `${baseNumber}(b)`,
           text: "",
-          marks: "",
           level: "",
           outcome: ""
-        });
-      }
-  
-      setFormData(prev => ({ ...prev, groups: updatedGroups }));
-    };
+        }
+      ];
+      currentQuestion.questions[0].number = `${baseNumber}(a)`;
+      delete currentQuestion.text;
+      delete currentQuestion.level;
+      delete currentQuestion.outcome;
+    } else {
+      const nextLetter = String.fromCharCode(97 + currentQuestion.questions.length);
+      currentQuestion.questions.push({
+        number: `${baseNumber}(${nextLetter})`,
+        text: "",
+        level: "",
+        outcome: ""
+      });
+    }
+
+    setFormData(prev => ({ ...prev, groups: updatedGroups }));
+  };
   
     const renderQuestionRow = (question, questionIndex) => {
       if (question.type === 'alternative') {

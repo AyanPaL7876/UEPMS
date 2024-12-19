@@ -11,7 +11,7 @@ const QuestionGroup = ({ group, groupIndex, formData, setFormData }) => {
   
     const addQuestion = () => {
       const newQuestion = {
-        number: `Q-${group.questions.length + 1}`,
+        number: `${group.questions.length + 1}`,
         text: "",
         marks: "",
         level: "",
